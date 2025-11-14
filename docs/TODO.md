@@ -197,13 +197,13 @@
   - [x] 접근성 (role="slider")
   - [x] 테스트 작성
 
-- [ ] **Card 컴포넌트**
+- [x] **Card 컴포넌트** ✅ 완료
 
-  - [ ] 기본 카드 (shadow, border, radius)
-  - [ ] 호버 애니메이션
-  - [ ] 반응형 레이아웃
-  - [ ] 슬롯 구조 (header, body, footer)
-  - [ ] 테스트 작성
+  - [x] 기본 카드 (shadow, border, radius)
+  - [x] 호버 애니메이션
+  - [x] 반응형 레이아웃
+  - [x] 슬롯 구조 (header, body, footer)
+  - [x] 테스트 작성
 
 - [ ] **접근성 컴포넌트**
 
