@@ -49,10 +49,56 @@
 
 - [ ] **Clerk 애플리케이션 설정**
 
-  - [ ] 개발용 Clerk 프로젝트 생성
-  - [ ] 프로덕션용 Clerk 프로젝트 생성
-  - [ ] OAuth 제공자 연결 (Google, Kakao, Apple)
-  - [ ] Webhook 구성 (user.created, user.updated)
+  > 📖 상세 계획: [CLERK_SETUP_PLAN.md](./CLERK_SETUP_PLAN.md) 참고
+
+  - [x] **Phase 1: 개발용 Clerk 프로젝트 생성** ✅ 완료
+
+    > 📖 상세 가이드: [CLERK_PHASE1_GUIDE.md](./CLERK_PHASE1_GUIDE.md) 참고
+
+    - [x] Clerk 대시보드에서 개발용 프로젝트 생성 ✅ (Frontend API URL 확인됨: `https://enough-airedale-80.clerk.accounts.dev`)
+    - [x] API Keys 확인 및 복사 (Publishable Key, Secret Key) ✅
+      - [x] Clerk Dashboard → API Keys 메뉴 접속
+      - [x] Publishable Key (`pk_test_...`) 복사
+      - [x] Secret Key (`sk_test_...`) 복사
+    - [x] Frontend API URL 확인 ✅ (`https://enough-airedale-80.clerk.accounts.dev`)
+    - [x] `.env.local`에 개발용 Clerk 키 설정 ✅
+      - [x] 프로젝트 루트에 `.env.local` 파일 생성
+      - [x] `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` 설정
+      - [x] `CLERK_SECRET_KEY` 설정
+      - [x] Clerk URLs 설정 (`/sign-in`, `/` 등)
+    - [x] 기본 인증 설정 확인 (Email 인증 방식) ✅
+      - [x] Clerk Dashboard → User & Authentication → Email 인증 방식 확인
+      - [x] 개발 서버 실행 및 로그인 테스트 (`http://localhost:3000/sign-in`)
+
+  - [ ] **Phase 2: Webhook 구성**
+
+    - [ ] ngrok 설치 및 실행 (`ngrok http 3000`)
+    - [ ] Clerk 대시보드에서 Webhook 엔드포인트 등록
+      - [ ] Endpoint URL: `https://your-ngrok-url.ngrok-free.app/api/webhooks/clerk`
+      - [ ] 이벤트 선택: `user.created`, `user.updated`, `user.deleted`
+    - [ ] Signing Secret 복사 및 `.env.local`에 `CLERK_WEBHOOK_SECRET` 설정
+    - [ ] Webhook 테스트 (Clerk 대시보드에서 "Send test webhook")
+    - [ ] Supabase `sessions` 테이블에서 동기화 확인
+
+  - [ ] **Phase 3: OAuth 제공자 연결** (선택사항)
+
+    - [ ] Google OAuth 설정
+      - [ ] Google Cloud Console에서 OAuth 클라이언트 생성
+      - [ ] Clerk 대시보드에서 Google 연결 및 키 입력
+    - [ ] Kakao OAuth 설정
+      - [ ] Kakao Developers에서 애플리케이션 설정
+      - [ ] Clerk 대시보드에서 Kakao 연결 (커스텀 제공자로 추가 가능)
+    - [ ] Apple OAuth 설정
+      - [ ] Apple Developer에서 Services ID 및 Key 생성
+      - [ ] Clerk 대시보드에서 Apple 연결 및 키 입력
+    - [ ] 각 OAuth 제공자 로그인 테스트
+
+  - [ ] **Phase 4: 프로덕션용 Clerk 프로젝트 생성** (배포 직전)
+    - [ ] 프로덕션용 Clerk 프로젝트 생성
+    - [ ] 프로덕션 API 키 복사 (`pk_live_...`, `sk_live_...`)
+    - [ ] Vercel 환경 변수에 프로덕션 키 설정
+    - [ ] 프로덕션 Webhook 엔드포인트 등록 (`https://your-app.vercel.app/api/webhooks/clerk`)
+    - [ ] 프로덕션 OAuth 제공자 연결 (Redirect URI 프로덕션 URL로 설정)
 
 - [ ] **Vercel 프로젝트 설정**
 
