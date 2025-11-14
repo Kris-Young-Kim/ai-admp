@@ -59,6 +59,7 @@ const useFormField = () => {
     id,
     name: fieldContext.name,
     formItemId: `${id}-form-item`,
+    formLabelId: `${id}-form-label`,
     formDescriptionId: `${id}-form-item-description`,
     formMessageId: `${id}-form-item-message`,
     ...fieldState,
@@ -87,11 +88,17 @@ function FormItem({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+interface FormLabelProps extends React.ComponentProps<typeof LabelPrimitive.Root> {
+  required?: boolean
+}
+
 function FormLabel({
   className,
+  required = false,
+  children,
   ...props
-}: React.ComponentProps<typeof LabelPrimitive.Root>) {
-  const { error, formItemId } = useFormField()
+}: FormLabelProps) {
+  const { error, formItemId, formLabelId } = useFormField()
 
   return (
     <Label
@@ -99,23 +106,35 @@ function FormLabel({
       data-error={!!error}
       className={cn("data-[error=true]:text-destructive", className)}
       htmlFor={formItemId}
+      id={formLabelId}
       {...props}
-    />
+    >
+      {children}
+      {required && (
+        <span className="text-destructive ml-1" aria-label="필수 항목">
+          *
+        </span>
+      )}
+    </Label>
   )
 }
 
 function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
-  const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
+  const { error, formItemId, formLabelId, formDescriptionId, formMessageId } = useFormField()
+
+  // aria-labelledby: 라벨이 있을 때만 설정
+  // aria-describedby: 설명이나 에러 메시지가 있을 때 설정
+  const ariaLabelledBy = formLabelId
+  const ariaDescribedBy = error
+    ? `${formDescriptionId} ${formMessageId}`.trim()
+    : formDescriptionId
 
   return (
     <Slot
       data-slot="form-control"
       id={formItemId}
-      aria-describedby={
-        !error
-          ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`
-      }
+      aria-labelledby={ariaLabelledBy}
+      aria-describedby={ariaDescribedBy || undefined}
       aria-invalid={!!error}
       {...props}
     />

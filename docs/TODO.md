@@ -172,21 +172,21 @@
   - [ ] 접근성 (aria-label, focus-visible) - 추가 검증 필요
   - [ ] 테스트 작성
 
-- [x] **Input 컴포넌트** (shadcn/ui)
+- [x] **Input 컴포넌트** (shadcn/ui) ✅ 완료
 
   - [x] Text, Email, Tel, Number 타입
   - [x] 라벨, 도움말, 에러 메시지
   - [x] 포커스 상태 시각화
-  - [ ] 접근성 (labelledBy, describedBy) - 추가 검증 필요
-  - [ ] 테스트 작성
+  - [x] 접근성 (labelledBy, describedBy) - 추가 검증 필요
+  - [x] 테스트 작성
 
-- [ ] **FormGroup 컴포넌트**
+- [x] **FormGroup 컴포넌트** ✅ 완료
 
-  - [ ] Radio button 그룹
-  - [ ] Checkbox 그룹
-  - [ ] 선택 유효성 검사
-  - [ ] 접근성 (role="group")
-  - [ ] 테스트 작성
+  - [x] Radio button 그룹
+  - [x] Checkbox 그룹
+  - [x] 선택 유효성 검사
+  - [x] 접근성 (role="group")
+  - [x] 테스트 작성
 
 - [ ] **Slider 컴포넌트**
 
