@@ -9,31 +9,35 @@
 
 ### 환경 설정
 
-- [x] **GitHub 리포지토리 생성**
+- [x] **GitHub 리포지토리 생성** ✅ 완료
 
   - [x] Git 리포지토리 초기화 완료
   - [x] main 브랜치 설정 완료
   - [x] GitHub 원격 저장소 연결 완료: `https://github.com/Kris-Young-Kim/ai-admp.git`
-  - [x] 첫 번째 커밋 완료
-  - [ ] 모든 파일 커밋 및 푸시 (현재 많은 파일이 untracked 상태)
+  - [x] 모든 파일 커밋 및 푸시 완료
+  - [x] 작업 트리 깨끗한 상태 (working tree clean)
+  - [x] origin/main과 동기화 완료
 
   ```bash
-  # 현재 상태
-  git status  # 많은 파일이 아직 추적되지 않음
-  git remote -v  # origin 연결됨: https://github.com/Kris-Young-Kim/ai-admp.git
-
-  # 다음 단계 (필요 시)
-  git add .
-  git commit -m "feat: add database migrations and project structure"
-  git push -u origin main
+  # 현재 상태 확인
+  git status  # ✅ nothing to commit, working tree clean
+  git remote -v  # ✅ origin 연결됨: https://github.com/Kris-Young-Kim/ai-admp.git
+  git branch -a  # ✅ main 브랜치, origin/main 동기화됨
   ```
 
-- [ ] **Supabase 프로젝트 생성**
+- [ ] **Supabase 프로젝트 생성** (부분 완료)
 
-  - [ ] PostgreSQL 데이터베이스 생성
-  - [ ] 프로젝트 URL 및 API 키 복사
-  - [ ] RLS 정책 기본 설정
-  - [ ] Webhook 구성
+  - [x] Supabase 클라이언트 설정 완료 (lib/supabase/)
+  - [x] 환경 변수 파일 생성 (.env.local 존재 확인됨)
+  - [x] 마이그레이션 파일 준비 완료 (7개 테이블)
+  - [x] Storage 버킷 마이그레이션 파일 준비 완료
+  - [ ] Supabase 클라우드 프로젝트 생성 (대시보드에서 생성 필요)
+  - [ ] PostgreSQL 데이터베이스 생성 (프로젝트 생성 시 자동)
+  - [ ] 프로젝트 URL 및 API 키 복사 (.env.local에 설정 필요)
+  - [ ] 마이그레이션 파일 적용 (Supabase 대시보드 또는 CLI)
+  - [ ] RLS 정책 기본 설정 (개발 단계: 비활성화 완료, 프로덕션: 필요)
+  - [ ] Storage 버킷 생성 및 설정 (uploads 버킷)
+  - [ ] Webhook 구성 (필요 시)
 
 - [ ] **Clerk 애플리케이션 설정**
 
