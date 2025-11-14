@@ -1,6 +1,9 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
-export default clerkMiddleware();
+export default clerkMiddleware({
+  // Webhook 엔드포인트는 인증 없이 접근 가능해야 함
+  ignoredRoutes: ["/api/webhooks/clerk"],
+});
 
 export const config = {
   matcher: [

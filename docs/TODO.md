@@ -25,19 +25,27 @@
   git branch -a  # ✅ main 브랜치, origin/main 동기화됨
   ```
 
-- [ ] **Supabase 프로젝트 생성** (부분 완료)
+- [x] **Supabase 프로젝트 생성** ✅ 완료
 
   - [x] Supabase 클라이언트 설정 완료 (lib/supabase/)
   - [x] 환경 변수 파일 생성 (.env.local 존재 확인됨)
   - [x] 마이그레이션 파일 준비 완료 (7개 테이블)
   - [x] Storage 버킷 마이그레이션 파일 준비 완료
-  - [ ] Supabase 클라우드 프로젝트 생성 (대시보드에서 생성 필요)
-  - [ ] PostgreSQL 데이터베이스 생성 (프로젝트 생성 시 자동)
-  - [ ] 프로젝트 URL 및 API 키 복사 (.env.local에 설정 필요)
-  - [ ] 마이그레이션 파일 적용 (Supabase 대시보드 또는 CLI)
-  - [ ] RLS 정책 기본 설정 (개발 단계: 비활성화 완료, 프로덕션: 필요)
-  - [ ] Storage 버킷 생성 및 설정 (uploads 버킷)
-  - [ ] Webhook 구성 (필요 시)
+  - [x] Supabase 클라우드 프로젝트 생성 완료
+  - [x] PostgreSQL 데이터베이스 생성 완료 (프로젝트 생성 시 자동)
+  - [x] 프로젝트 URL 및 API 키 복사 완료 (.env.local에 설정 완료)
+  - [x] 마이그레이션 파일 적용 완료 (Supabase 대시보드 또는 CLI)
+  - [x] RLS 정책 기본 설정 완료 (개발 단계: 비활성화 완료, 프로덕션: 필요)
+  - [x] Storage 버킷 생성 및 설정 완료 (uploads 버킷)
+  - [x] Webhook 구성 ✅ 완료
+    - [x] Clerk Webhook 엔드포인트 생성 (`/api/webhooks/clerk`)
+    - [x] user.created, user.updated, user.deleted 이벤트 처리
+    - [x] Supabase sessions 테이블 자동 동기화
+    - [x] middleware.ts에서 webhook 라우트 제외 설정
+    - [x] svix 패키지 설치 완료
+    - [x] Webhook 설정 가이드 문서 작성 (`docs/WEBHOOK_SETUP.md`)
+    - [ ] Clerk 대시보드에서 Webhook 엔드포인트 등록 (수동 작업 필요)
+    - [ ] CLERK_WEBHOOK_SECRET 환경 변수 설정 (수동 작업 필요)
 
 - [ ] **Clerk 애플리케이션 설정**
 
@@ -601,6 +609,9 @@
    - ✅ 모든 인덱스 생성 완료 (단일, 복합, GIN 인덱스 포함)
    - ✅ Foreign Key 관계 설정 완료
    - ✅ RLS 비활성화 완료 (개발 단계)
+   - ✅ Supabase 클라우드 프로젝트 생성 완료
+   - ✅ 마이그레이션 파일 적용 완료 (Supabase에 적용됨)
+   - ✅ Storage 버킷 생성 완료 (uploads)
 
 3. **인증 및 권한**
 
