@@ -334,7 +334,7 @@ export function FormGroup(props: FormGroupProps) {
   )
 }
 
-export { RadioGroup, RadioGroupItem, Checkbox, FormGroup }
+export { RadioGroup, RadioGroupItem, Checkbox }
 export type { FormGroupProps, FormGroupOption }
 
 
