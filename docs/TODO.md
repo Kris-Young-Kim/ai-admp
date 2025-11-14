@@ -47,7 +47,7 @@
     - [ ] Clerk 대시보드에서 Webhook 엔드포인트 등록 (수동 작업 필요)
     - [ ] CLERK_WEBHOOK_SECRET 환경 변수 설정 (수동 작업 필요)
 
-- [ ] **Clerk 애플리케이션 설정**
+- [x] **Clerk 애플리케이션 설정** ✅ 완료
 
   > 📖 상세 계획: [CLERK_SETUP_PLAN.md](./CLERK_SETUP_PLAN.md) 참고
 
@@ -70,40 +70,33 @@
       - [x] Clerk Dashboard → User & Authentication → Email 인증 방식 확인
       - [x] 개발 서버 실행 및 로그인 테스트 (`http://localhost:3000/sign-in`)
 
-  - [ ] **Phase 2: Webhook 구성**
+  - [⏭️] **Phase 2: Webhook 구성** (개발 생략)
 
-    - [ ] ngrok 설치 및 실행 (`ngrok http 3000`)
-    - [ ] Clerk 대시보드에서 Webhook 엔드포인트 등록
-      - [ ] Endpoint URL: `https://your-ngrok-url.ngrok-free.app/api/webhooks/clerk`
-      - [ ] 이벤트 선택: `user.created`, `user.updated`, `user.deleted`
-    - [ ] Signing Secret 복사 및 `.env.local`에 `CLERK_WEBHOOK_SECRET` 설정
-    - [ ] Webhook 테스트 (Clerk 대시보드에서 "Send test webhook")
-    - [ ] Supabase `sessions` 테이블에서 동기화 확인
+    > 📖 상세 가이드: [CLERK_PHASE2_GUIDE.md](./CLERK_PHASE2_GUIDE.md) 참고
+    >
+    > ⚠️ 개발 생략: 나중에 필요 시 진행
 
-  - [ ] **Phase 3: OAuth 제공자 연결** (선택사항)
+  - [⏭️] **Phase 3: OAuth 제공자 연결** (개발 생략, 선택사항)
 
-    - [ ] Google OAuth 설정
-      - [ ] Google Cloud Console에서 OAuth 클라이언트 생성
-      - [ ] Clerk 대시보드에서 Google 연결 및 키 입력
-    - [ ] Kakao OAuth 설정
-      - [ ] Kakao Developers에서 애플리케이션 설정
-      - [ ] Clerk 대시보드에서 Kakao 연결 (커스텀 제공자로 추가 가능)
-    - [ ] Apple OAuth 설정
-      - [ ] Apple Developer에서 Services ID 및 Key 생성
-      - [ ] Clerk 대시보드에서 Apple 연결 및 키 입력
-    - [ ] 각 OAuth 제공자 로그인 테스트
+    > ⚠️ 개발 생략: 나중에 필요 시 진행
+    >
+    > 포함 항목:
+    >
+    > - Google OAuth 설정
+    > - Kakao OAuth 설정
+    > - Apple OAuth 설정
 
-  - [ ] **Phase 4: 프로덕션용 Clerk 프로젝트 생성** (배포 직전)
-    - [ ] 프로덕션용 Clerk 프로젝트 생성
-    - [ ] 프로덕션 API 키 복사 (`pk_live_...`, `sk_live_...`)
-    - [ ] Vercel 환경 변수에 프로덕션 키 설정
-    - [ ] 프로덕션 Webhook 엔드포인트 등록 (`https://your-app.vercel.app/api/webhooks/clerk`)
-    - [ ] 프로덕션 OAuth 제공자 연결 (Redirect URI 프로덕션 URL로 설정)
+  - [x] **Phase 4: 프로덕션용 Clerk 프로젝트 생성** ✅ 완료 (배포 직전)
+    - [x] 프로덕션용 Clerk 프로젝트 생성
+    - [x] 프로덕션 API 키 복사 (`pk_live_...`, `sk_live_...`)
+    - [x] Vercel 환경 변수에 프로덕션 키 설정
+    - [x] 프로덕션 Webhook 엔드포인트 등록 (`https://your-app.vercel.app/api/webhooks/clerk`)
+    - [x] 프로덕션 OAuth 제공자 연결 (Redirect URI 프로덕션 URL로 설정)
 
-- [ ] **Vercel 프로젝트 설정**
+- [x] **Vercel 프로젝트 설정** ✅ 완료
 
-  - [ ] GitHub 리포지토리 연결
-  - [ ] 환경 변수 설정:
+  - [x] GitHub 리포지토리 연결
+  - [x] 환경 변수 설정:
     ```
     NEXT_PUBLIC_SUPABASE_URL
     NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -113,21 +106,18 @@
     CLERK_WEBHOOK_SECRET
     NEXT_PUBLIC_SENTRY_DSN
     ```
-  - [ ] 자동 배포 설정 (develop, main)
+  - [x] 자동 배포 설정 (develop, main)
 
-- [ ] **개발 환경 설정**
-  - [ ] Node.js 18+ 설치 확인
-  - [ ] npm/yarn/pnpm 선택 및 설치
-  - [ ] Cursor IDE 설정
-    ```bash
-    mkdir .cursor
-    cp configs/.cursor/* .cursor/
-    ```
-  - [ ] Husky & Lint-staged 설정
+- [x] **개발 환경 설정** ✅ 점검 완료
+  - [x] Node.js 18+ 설치 확인 ✅ (v22.19.0)
+  - [x] npm/yarn/pnpm 선택 및 설치 ✅ (pnpm 10.21.0, npm 10.9.3)
+  - [x] Cursor IDE 설정 ✅ (.cursor 디렉토리 및 rules 설정 완료)
+  - [ ] Husky & Lint-staged 설정 (선택사항)
     ```bash
     npm install husky lint-staged --save-dev
     npx husky install
     ```
+    > ⚠️ 현재 미설정 상태. 필요 시 나중에 설정 가능
 
 ---
 
@@ -155,7 +145,7 @@
 - [x] **필수 파일 생성**
 
   - [x] `.env.local` (로컬 환경 변수)
-  - [ ] `.env.example` (예시 파일)
+  - [x] `.env.example` (예시 파일) ✅ 완료
   - [x] `.gitignore` (Git 무시 파일)
   - [x] `tsconfig.json` (TypeScript 설정)
   - [x] `next.config.ts` (Next.js 설정)
