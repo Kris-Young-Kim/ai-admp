@@ -379,6 +379,282 @@ DATABASE_URL=postgresql://...
 
 ---
 
+## 8. 웹 접근성 (Web Accessibility) 요구사항
+
+### 8.1 접근성 목표 및 기준
+
+**목표**: WCAG 2.1 AA 레벨 준수 (AAA 레벨 일부 적용)
+
+**적용 범위**:
+- 모든 페이지 및 컴포넌트
+- 모든 사용자 인터랙션
+- 모든 미디어 콘텐츠
+- 모든 폼 및 입력 필드
+
+**준수 기준**:
+- **인지 가능성 (Perceivable)**: 모든 정보와 UI 요소를 사용자가 인지할 수 있어야 함
+- **운용 가능성 (Operable)**: 모든 기능이 키보드로 접근 가능해야 함
+- **이해 가능성 (Understandable)**: 정보와 UI 조작이 이해 가능해야 함
+- **견고성 (Robust)**: 보조 기술과 호환되어야 함
+
+### 8.2 시각 장애인 지원 기능
+
+#### 8.2.1 스크린 리더 최적화
+- **ARIA 속성 완전 구현**
+  - 모든 인터랙티브 요소에 `aria-label`, `aria-labelledby`, `aria-describedby` 적용
+  - 랜드마크 역할 (`role="main"`, `role="navigation"` 등) 명확히 지정
+  - 동적 콘텐츠 업데이트 시 `aria-live` 영역 활용
+  - 폼 요소는 `FormLabel`과 `FormDescription`으로 완전히 연결
+
+- **시맨틱 HTML 구조**
+  - `<header>`, `<nav>`, `<main>`, `<aside>`, `<footer>` 적절히 사용
+  - 제목 계층 구조 (`<h1>` ~ `<h6>`) 논리적으로 구성
+  - 목록은 `<ul>`, `<ol>`, `<dl>` 사용
+
+- **스킵 링크 제공**
+  - 페이지 상단에 "주 콘텐츠로 건너뛰기" 링크
+  - 키보드 사용자가 반복되는 네비게이션을 건너뛸 수 있음
+
+#### 8.2.2 TTS (Text-to-Speech) 기능
+- **Web Speech API 통합**
+  ```typescript
+  // TTS 기능 구현 예시
+  const speak = (text: string, lang: string = 'ko-KR') => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = lang;
+    utterance.rate = 1.0; // 읽기 속도 조절 가능
+    speechSynthesis.speak(utterance);
+  };
+  ```
+
+- **주요 기능**:
+  - 페이지 전체 읽기 (전체 콘텐츠를 순차적으로 읽음)
+  - 선택한 텍스트 읽기 (사용자가 선택한 부분만 읽기)
+  - 읽기 속도 조절 (0.5x ~ 2.0x)
+  - 음성 선택 (한국어, 영어)
+  - 일시정지/재개/중지 컨트롤
+  - 현재 읽는 위치 하이라이트
+
+- **스크린 리더와의 호환성**
+  - TTS 기능이 스크린 리더와 충돌하지 않도록 설계
+  - 사용자가 선택적으로 활성화/비활성화 가능
+
+#### 8.2.3 OCR (Optical Character Recognition) 기능
+- **이미지 텍스트 추출**
+  - Tesseract.js 또는 Google Vision API 통합
+  - 사용자가 이미지를 업로드하면 텍스트 자동 추출
+  - 추출된 텍스트를 TTS로 읽기
+  - 이미지 `alt` 속성 자동 생성 지원
+
+- **사용 시나리오**:
+  - 사용자가 이미지로 된 문서를 업로드
+  - OCR로 텍스트 추출
+  - TTS로 음성으로 읽기
+  - 스크린 리더 사용자도 이미지 내용 이해 가능
+
+#### 8.2.4 화면 확대/축소 기능
+- **플로팅 버튼 UI**
+  - 화면 우측 하단에 접근성 도구 모음 버튼
+  - 클릭 시 확대/축소, 고대비, 폰트 크기 조절 등 옵션 표시
+
+- **화면 확대/축소**
+  - 50% ~ 200% 범위에서 조절 가능
+  - CSS `transform: scale()` 또는 `zoom` 속성 활용
+  - 레이아웃 깨짐 방지 (반응형 디자인 유지)
+
+- **고대비 모드**
+  - 색상 대비를 극대화한 테마
+  - WCAG AAA 레벨 대비 (7:1) 제공
+  - 배경/텍스트 색상 반전 옵션
+
+- **폰트 크기 조절**
+  - 작게 / 보통 / 크게 / 아주크게 (4단계)
+  - `rem` 단위 사용으로 전체적으로 조절
+  - 설정 저장 (localStorage)
+
+### 8.3 청각 장애인 지원 기능
+
+#### 8.3.1 자막 지원
+- **동영상 자막**
+  - 모든 동영상 콘텐츠에 자막 제공
+  - WebVTT 형식 자막 파일
+  - 자막 위치/크기/색상 조절 가능
+  - 자막 배경 투명도 조절
+
+- **실시간 자막 (선택사항)**
+  - Web Speech API의 Speech Recognition 활용
+  - 실시간 오디오를 텍스트로 변환
+  - 주로 라이브 스트리밍이나 화상 회의에 활용
+
+#### 8.3.2 수어 지원 (필요 시)
+- **수어 동영상 링크**
+  - 중요한 정보는 수어 동영상 링크 제공
+  - 별도 페이지에서 수어 동영상 재생
+
+### 8.4 지체 장애인 지원 기능
+
+#### 8.4.1 키보드 네비게이션
+- **완전한 키보드 접근**
+  - 모든 기능이 마우스 없이 키보드로만 사용 가능
+  - Tab 키로 포커스 이동
+  - Enter/Space로 활성화
+  - Esc로 모달/다이얼로그 닫기
+  - 화살표 키로 메뉴/리스트 네비게이션
+
+- **포커스 관리**
+  - 포커스 인디케이터 명확히 표시 (최소 2px 두께)
+  - 포커스 트랩 (모달 열릴 때 배경 요소로 포커스 이동 방지)
+  - 논리적인 Tab 순서
+
+- **키보드 단축키**
+  - `Alt + A`: 접근성 도구 모음 열기
+  - `Alt + T`: TTS 시작/중지
+  - `Alt + K`: 키보드 스캔 모드 토글
+  - `Alt + H`: 고대비 모드 토글
+  - 모든 단축키는 사용자에게 알림
+
+#### 8.4.2 키보드 스캔 모드
+- **스캔 모드 기능**
+  - 지체 장애인이 최소한의 입력으로 웹사이트 탐색 가능
+  - 자동 스캔: 시간 간격(예: 2초)마다 포커스 자동 이동
+  - 수동 스캔: 스페이스바 또는 엔터로 다음 요소로 이동
+
+- **시각적 피드백**
+  - 현재 스캔 중인 요소 강조 표시
+  - 스캔 순서 시각화 (번호 표시)
+  - 포커스 하이라이트 강화
+
+- **스캔 범위 설정**
+  - 전체 페이지 스캔
+  - 특정 섹션만 스캔
+  - 인터랙티브 요소만 스캔
+
+### 8.5 인지 장애인 지원 기능
+
+#### 8.5.1 명확한 레이블 및 지시사항
+- **폼 레이블**
+  - 모든 입력 필드에 명확한 라벨
+  - 필수 항목 별표(*) 표시
+  - 입력 힌트 및 도움말 제공
+  - 에러 메시지 명확하고 구체적으로 표시
+
+#### 8.5.2 단순화된 인터페이스
+- **애니메이션 비활성화 옵션**
+  - 사용자가 애니메이션을 끌 수 있음
+  - `prefers-reduced-motion` 미디어 쿼리 지원
+  - CSS `@media (prefers-reduced-motion: reduce)` 적용
+
+- **줄 간격 조절**
+  - 텍스트 가독성 향상을 위한 줄 간격 조절
+  - 1.2 / 1.5 / 2.0 배율 선택
+
+### 8.6 기술 구현
+
+#### 8.6.1 React Aria 통합
+- **패키지 설치**
+  ```bash
+  pnpm add @react-aria/components @react-aria/interactions
+  ```
+
+- **컴포넌트 마이그레이션**
+  - 기존 컴포넌트를 React Aria 기반으로 점진적 마이그레이션
+  - 키보드 네비게이션 자동 지원
+  - 포커스 관리 자동화
+  - 스크린 리더 최적화
+
+#### 8.6.2 접근성 도구 모음 컴포넌트
+```typescript
+// components/accessibility/AccessibilityToolbar.tsx
+interface AccessibilitySettings {
+  fontSize: 'small' | 'normal' | 'large' | 'xlarge';
+  zoom: number; // 50 ~ 200
+  highContrast: boolean;
+  animationsDisabled: boolean;
+  lineHeight: number;
+  ttsEnabled: boolean;
+  scanMode: boolean;
+}
+
+export function AccessibilityToolbar() {
+  // 플로팅 버튼 UI
+  // 설정 패널
+  // localStorage 저장
+}
+```
+
+#### 8.6.3 TTS 컴포넌트
+```typescript
+// components/accessibility/TextToSpeech.tsx
+export function TextToSpeech() {
+  const [isReading, setIsReading] = useState(false);
+  const [rate, setRate] = useState(1.0);
+  const [lang, setLang] = useState('ko-KR');
+  
+  const speak = (text: string) => {
+    // Web Speech API 구현
+  };
+  
+  // 컨트롤 UI (재생/일시정지/중지)
+}
+```
+
+#### 8.6.4 키보드 스캔 모드 컴포넌트
+```typescript
+// components/accessibility/KeyboardScanMode.tsx
+export function KeyboardScanMode() {
+  const [isActive, setIsActive] = useState(false);
+  const [scanInterval, setScanInterval] = useState(2000);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // 자동/수동 스캔 로직
+  // 포커스 이동
+  // 시각적 하이라이트
+}
+```
+
+### 8.7 테스트 및 검증
+
+#### 8.7.1 자동화 테스트
+- **axe DevTools**
+  - 빌드 파이프라인에 axe-core 통합
+  - 접근성 위반 자동 감지
+
+- **Lighthouse 접근성 점수**
+  - 목표: 95점 이상
+  - CI/CD 파이프라인에 통합
+
+#### 8.7.2 수동 테스트
+- **스크린 리더 테스트**
+  - NVDA (Windows)
+  - JAWS (Windows)
+  - VoiceOver (macOS/iOS)
+  - TalkBack (Android)
+
+- **키보드 네비게이션 테스트**
+  - 모든 기능 키보드만으로 사용 가능한지 확인
+  - Tab 순서 논리적인지 확인
+  - 포커스 인디케이터 명확한지 확인
+
+- **실제 사용자 테스트**
+  - 장애인 사용자 그룹과 협력
+  - 피드백 수집 및 개선
+
+### 8.8 문서화
+
+#### 8.8.1 접근성 정책 문서
+- 웹사이트 접근성 정책 명시
+- WCAG 2.1 AA 준수 선언
+- 접근성 기능 사용 가이드
+
+#### 8.8.2 키보드 단축키 가이드
+- 모든 키보드 단축키 목록
+- 사용 방법 설명
+- 접근성 도구 모음 사용법
+
+---
+
+---
+
 ## 11. Cursor IDE 개발 워크플로우 (최신)
 
 ### 11.1 Cursor 설정 파일
