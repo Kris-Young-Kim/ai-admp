@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * @file input.tsx
  * @description Input 컴포넌트 - React Aria 통합으로 접근성 향상

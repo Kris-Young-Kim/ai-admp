@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * @file button.tsx
  * @description Button 컴포넌트 - React Aria 통합으로 접근성 향상
