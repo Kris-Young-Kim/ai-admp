@@ -164,36 +164,40 @@ export function DemoSection() {
                 />
 
                 {/* 질문 3: 예산 (슬라이더) */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">
-                    예산 범위 <span className="text-red-500">*</span>
-                  </label>
-                  <p className="text-sm text-muted-foreground">
-                    원하시는 예산 범위를 선택해주세요.
-                  </p>
-                  <div className="px-2">
-                    <FormSlider
-                      name="budget_min"
-                      label=""
-                      min={0}
-                      max={10000000}
-                      step={100000}
-                      showValue
-                      valueLabel={(value) => `${(value / 10000).toFixed(0)}만원`}
-                    />
-                    <FormSlider
-                      name="budget_max"
-                      label=""
-                      min={0}
-                      max={10000000}
-                      step={100000}
-                      showValue
-                      valueLabel={(value) => `${(value / 10000).toFixed(0)}만원`}
-                    />
-                  </div>
-                  <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                    <span>최소: {(form.watch("budget_min") || 0) / 10000}만원</span>
-                    <span>최대: {(form.watch("budget_max") || 10000000) / 10000}만원</span>
+                <div className="space-y-4">
+                  <FormSlider
+                    name="budget_min"
+                    label="최소 예산"
+                    description="원하시는 최소 예산을 선택해주세요. (단위: 만원)"
+                    min={0}
+                    max={10000000}
+                    step={100000}
+                    showValue
+                    valueLabel={(value) => `${(value / 10000).toFixed(0)}만원`}
+                    required
+                    aria-label="최소 예산 선택"
+                  />
+                  <FormSlider
+                    name="budget_max"
+                    label="최대 예산"
+                    description="원하시는 최대 예산을 선택해주세요. (단위: 만원)"
+                    min={0}
+                    max={10000000}
+                    step={100000}
+                    showValue
+                    valueLabel={(value) => `${(value / 10000).toFixed(0)}만원`}
+                    required
+                    aria-label="최대 예산 선택"
+                  />
+                  <div 
+                    className="flex justify-between text-xs text-muted-foreground mt-2"
+                    role="status"
+                    aria-live="polite"
+                    aria-atomic="false"
+                  >
+                    <span>
+                      선택 범위: {(form.watch("budget_min") || 0) / 10000}만원 ~ {(form.watch("budget_max") || 10000000) / 10000}만원
+                    </span>
                   </div>
                 </div>
 

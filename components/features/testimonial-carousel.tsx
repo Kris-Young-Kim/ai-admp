@@ -181,7 +181,8 @@ export function TestimonialCarousel({
               <div className="text-center text-sm text-gray-500 dark:text-gray-400">
                 {currentIndex + 1} / {testimonials.length}
               </div>
-            )}
+            </>
+          )}
         </CardContent>
       </Card>
     </div>

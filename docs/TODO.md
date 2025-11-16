@@ -637,20 +637,20 @@
   - [ ] 동영상 자막 제공
   - [ ] 오디오 트랜스크립트 제공
 
-- [ ] **폼 접근성**
+- [x] **폼 접근성** ✅ 완료
 
-  - [ ] 모든 입력 필드에 라벨 연결
-  - [ ] 필수 항목 명확히 표시
-  - [ ] 에러 메시지 접근 가능하게 제공
-  - [ ] 입력 힌트 및 도움말 제공
-  - [ ] 폼 검증 실시간 피드백
+  - [x] 모든 입력 필드에 라벨 연결 ✅ (FormGroup, FormSlider, Input 모두 라벨 연결 완료)
+  - [x] 필수 항목 명확히 표시 ✅ (required prop으로 통일, FormLabel에서 \* 표시)
+  - [x] 에러 메시지 접근 가능하게 제공 ✅ (FormMessage에 role="alert", aria-live="polite" 추가)
+  - [x] 입력 힌트 및 도움말 제공 ✅ (FormDescription으로 설명 제공)
+  - [x] 폼 검증 실시간 피드백 ✅ (FormMessage에 aria-live 영역 설정 완료)
 
-- [ ] **동적 콘텐츠 접근성**
+- [x] **동적 콘텐츠 접근성** ✅ 완료
 
-  - [ ] `aria-live` 영역 설정
-  - [ ] AJAX 업데이트 알림
-  - [ ] 로딩 상태 접근 가능하게 표시
-  - [ ] 에러 메시지 접근 가능하게 표시
+  - [x] `aria-live` 영역 설정 ✅ (GlobalAriaLiveRegion 컴포넌트, FormMessage에 aria-live 추가)
+  - [x] AJAX 업데이트 알림 ✅ (DemoSection 결과 표시에 aria-live="polite" 설정)
+  - [x] 로딩 상태 접근 가능하게 표시 ✅ (Button에 aria-label로 로딩 상태 표시)
+  - [x] 에러 메시지 접근 가능하게 표시 ✅ (FormMessage에 role="alert", aria-live="polite" 설정)
 
 - [ ] **모바일 접근성**
 
