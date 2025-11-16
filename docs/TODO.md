@@ -342,30 +342,30 @@
   - [ ] `lib/auth.ts` - 헬퍼 함수 (추가 필요 시)
   - [x] 세션 생성/업데이트 로직 (SyncUserProvider 구현 완료)
 
-- [ ] **매칭 API** (`/api/matching/recommend`)
+- [x] **매칭 API** (`/api/matching/recommend`) ✅ 완료
 
-  - [ ] 입력 검증
-  - [ ] Supabase 쿼리 로직
-  - [ ] AI 알고리즘 (또는 규칙 기반)
-  - [ ] 결과 저장
-  - [ ] 에러 처리
+  - [x] 입력 검증 (Zod 스키마)
+  - [x] Supabase 쿼리 로직
+  - [x] AI 알고리즘 (규칙 기반 점수 계산)
+  - [x] 결과 저장 (matchings 테이블)
+  - [x] 에러 처리
 
-- [ ] **피드백 API** (`/api/feedback/submit`)
+- [x] **피드백 API** (`/api/feedback/submit`) ✅ 완료
 
-  - [ ] 피드백 저장
-  - [ ] 유효성 검사
-  - [ ] 응답 포맷
+  - [x] 피드백 저장
+  - [x] 유효성 검사 (Zod 스키마)
+  - [x] 응답 포맷
 
-- [ ] **분석 API** (`/api/analytics/event`)
+- [x] **분석 API** (`/api/analytics/event`) ✅ 완료
 
-  - [ ] 이벤트 저장
-  - [ ] 배치 처리
-  - [ ] Google Analytics 동기화
+  - [x] 이벤트 저장
+  - [x] 배치 처리 (여러 이벤트 한 번에 저장)
+  - [ ] Google Analytics 동기화 (추후 구현)
 
-- [ ] **헬스체크 API** (`/api/health`)
-  - [ ] 데이터베이스 상태
-  - [ ] API 상태
-  - [ ] 외부 서비스 상태
+- [x] **헬스체크 API** (`/api/health`) ✅ 완료
+  - [x] 데이터베이스 상태
+  - [x] API 상태
+  - [ ] 외부 서비스 상태 (추후 구현)
 
 ---
 
