@@ -2,6 +2,7 @@ import { AccessibilityToolbar } from "@/components/accessibility/accessibility-t
 import { SkipLink } from "@/components/accessibility/skip-link";
 import { TextToSpeech } from "@/components/accessibility/text-to-speech";
 import { KeyboardScanMode } from "@/components/accessibility/keyboard-scan-mode";
+import { GlobalAriaLiveRegion } from "@/components/accessibility/aria-live-region";
 
 /**
  * 인덱스 페이지 (랜딩 페이지)
@@ -37,18 +38,20 @@ export default function Home() {
               당신에게 가장 적합한 보조기기를 AI가 추천해드립니다
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a
-                href="#demo"
-                className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-4 focus:ring-blue-300"
-              >
-                무료로 시작하기
-              </a>
-              <a
-                href="#how-it-works"
-                className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-2 border-gray-300 dark:border-gray-600 rounded-lg font-semibold text-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-4 focus:ring-gray-300"
-              >
-                작동 방식 알아보기
-              </a>
+            <a
+              href="#demo"
+              className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-4 focus:ring-blue-300"
+              aria-label="무료로 시작하기 - 데모 섹션으로 이동"
+            >
+              무료로 시작하기
+            </a>
+            <a
+              href="#how-it-works"
+              className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-2 border-gray-300 dark:border-gray-600 rounded-lg font-semibold text-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-4 focus:ring-gray-300"
+              aria-label="작동 방식 알아보기 - 작동 방식 섹션으로 이동"
+            >
+              작동 방식 알아보기
+            </a>
             </div>
           </div>
         </section>
@@ -166,6 +169,7 @@ export default function Home() {
             <a
               href="#demo"
               className="inline-block px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-4 focus:ring-blue-300"
+              aria-label="무료로 시작하기 - 데모 섹션으로 이동"
             >
               무료로 시작하기
             </a>
@@ -181,6 +185,9 @@ export default function Home() {
 
       {/* 접근성 기능: 키보드 스캔 모드 */}
       <KeyboardScanMode />
+
+      {/* 접근성 기능: ARIA Live Region */}
+      <GlobalAriaLiveRegion />
     </>
   );
 }

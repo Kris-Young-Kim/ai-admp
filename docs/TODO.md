@@ -562,14 +562,16 @@
   - [ ] 자막 위치/크기/색상 조절
   - [ ] 수어 동영상 링크 제공 (필요 시)
 
-- [ ] **ARIA 속성 및 시맨틱 HTML**
+- [x] **ARIA 속성 및 시맨틱 HTML** ✅ 완료
 
-  - [ ] 모든 인터랙티브 요소에 적절한 ARIA 속성
-  - [ ] `aria-label`, `aria-labelledby`, `aria-describedby` 적용
-  - [ ] `role` 속성 적절히 사용
-  - [ ] `aria-live` 영역 설정 (동적 콘텐츠)
-  - [ ] 랜드마크 역할 (`main`, `nav`, `aside` 등)
-  - [ ] 폼 요소 접근성 (FormLabel, FormDescription 활용)
+  - [x] 모든 인터랙티브 요소에 적절한 ARIA 속성
+  - [x] `aria-label`, `aria-labelledby`, `aria-describedby` 적용
+  - [x] `role` 속성 적절히 사용
+  - [x] `aria-live` 영역 설정 (동적 콘텐츠) - `AriaLiveRegion` 컴포넌트
+  - [x] 랜드마크 역할 (`main`, `nav`, `aside` 등)
+  - [x] 폼 요소 접근성 (FormLabel, FormDescription 활용)
+  - [x] ARIA 헬퍼 함수 구현 (`lib/accessibility/aria-helper.ts`)
+  - [x] 페이지에 ARIA 속성 추가 (aria-label 등)
 
 - [ ] **React Aria 컴포넌트 통합**
 
@@ -581,21 +583,24 @@
 
 ### WCAG 2.1 AA 준수 검증
 
-- [ ] **색상 대비 검사**
+- [x] **색상 대비 검사** ✅ 검증 도구 구현
 
-  - [ ] axe DevTools 실행
-  - [ ] 모든 텍스트 4.5:1 이상 확보
-  - [ ] 큰 텍스트 3:1 이상
-  - [ ] 고대비 모드에서도 대비 확인
+  - [x] WCAG 검증 도구 구현 (`lib/accessibility/wcag-checker.ts`)
+  - [x] 접근성 검증 페이지 구현 (`app/accessibility-check/page.tsx`)
+  - [x] 접근성 가이드 문서 작성 (`docs/ACCESSIBILITY_GUIDE.md`)
+  - [ ] axe DevTools 실행 (수동 검증 필요)
+  - [ ] 모든 텍스트 4.5:1 이상 확보 (수동 검증 필요)
+  - [ ] 큰 텍스트 3:1 이상 (수동 검증 필요)
+  - [ ] 고대비 모드에서도 대비 확인 (수동 검증 필요)
 
-- [ ] **키보드 네비게이션**
+- [x] **키보드 네비게이션** ✅ 구현 완료
 
-  - [ ] Tab 키 순서 확인 (논리적 순서)
-  - [ ] Shift + Tab 역순 네비게이션
-  - [ ] 포커스 인디케이터 명확히 표시 (최소 2px)
-  - [ ] 포커스 트랩 확인 (모달, 다이얼로그)
-  - [ ] 키보드 단축키 문서화
-  - [ ] 스킵 링크 제공 (주 콘텐츠로 바로 이동)
+  - [x] Tab 키 순서 확인 (논리적 순서)
+  - [x] Shift + Tab 역순 네비게이션
+  - [x] 포커스 인디케이터 명확히 표시 (최소 2px) - Button, Input 컴포넌트
+  - [x] 포커스 트랩 확인 (모달, 다이얼로그) - Dialog 컴포넌트
+  - [x] 키보드 단축키 문서화 (`docs/ACCESSIBILITY_GUIDE.md`)
+  - [x] 스킵 링크 제공 (주 콘텐츠로 바로 이동) - `SkipLink` 컴포넌트
 
 - [ ] **스크린 리더 테스트**
 

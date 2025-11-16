@@ -4,6 +4,7 @@ import { AccessibilityToolbar } from "@/components/accessibility/accessibility-t
 import { SkipLink } from "@/components/accessibility/skip-link";
 import { TextToSpeech } from "@/components/accessibility/text-to-speech";
 import { KeyboardScanMode } from "@/components/accessibility/keyboard-scan-mode";
+import { GlobalAriaLiveRegion } from "@/components/accessibility/aria-live-region";
 
 /**
  * 대시보드 페이지
@@ -128,6 +129,9 @@ export default async function DashboardPage() {
 
       {/* 접근성 기능: 키보드 스캔 모드 */}
       <KeyboardScanMode />
+
+      {/* 접근성 기능: ARIA Live Region */}
+      <GlobalAriaLiveRegion />
     </>
   );
 }
