@@ -373,24 +373,24 @@
 
 ### 상태 관리 및 서비스
 
-- [ ] **Zustand 스토어 구축**
+- [x] **Zustand 스토어 구축** ✅ 완료
 
-  - [ ] `store/uiStore.ts` - UI 상태
-  - [ ] `store/formStore.ts` - 폼 상태
-  - [ ] `store/matchingStore.ts` - 매칭 결과
+  - [x] `store/uiStore.ts` - UI 상태 (테마, 모달, 스크롤 위치)
+  - [x] `store/formStore.ts` - 폼 상태 (검증, 에러 관리)
+  - [x] `store/matchingStore.ts` - 매칭 결과 (결과 저장, 히스토리)
 
-- [ ] **API 클라이언트**
+- [x] **API 클라이언트** ✅ 완료
 
-  - [ ] `lib/api/matching.ts`
-  - [ ] `lib/api/feedback.ts`
-  - [ ] `lib/api/analytics.ts`
-  - [ ] 에러 처리 및 재시도 로직
+  - [x] `lib/api/matching.ts` - 매칭 추천 API
+  - [x] `lib/api/feedback.ts` - 피드백 제출 API
+  - [x] `lib/api/analytics.ts` - 분석 이벤트 API
+  - [x] 에러 처리 및 재시도 로직 (최대 3회 재시도)
 
-- [ ] **Hooks 개발**
-  - [ ] `useMatching()` - 매칭 로직
-  - [ ] `useForm()` - 폼 상태 관리
-  - [ ] `useAnalytics()` - 이벤트 추적
-  - [ ] `useAuth()` - 인증 정보
+- [x] **Hooks 개발** ✅ 완료
+  - [x] `hooks/use-matching.ts` - 매칭 로직 (자동 분석 이벤트 추적)
+  - [x] `hooks/use-form.ts` - 폼 상태 관리
+  - [x] `hooks/use-analytics.ts` - 이벤트 추적 (페이지 뷰 자동 추적)
+  - [x] `hooks/use-auth.ts` - 인증 정보 (Clerk 래퍼)
 
 ### 페이지 개발
 
