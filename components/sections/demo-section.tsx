@@ -9,12 +9,7 @@ import { FormGroup } from "@/components/ui/form-group";
 import { FormSlider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { RecommendationCard } from "@/components/features/recommendation-card";
-import { useMatching } from "@/hooks/use-matching";
-import { useFormStore } from "@/store/formStore";
-import { Loader2, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
-import type { RecommendedProduct } from "@/store/matchingStore";
+import { Sparkles } from "lucide-react";
 
 /**
  * AI 데모 섹션 컴포넌트
@@ -64,10 +59,6 @@ const activityOptions = [
 ];
 
 export function DemoSection() {
-  const [showResults, setShowResults] = React.useState(false);
-  const { executeMatching, isLoading, error, currentResult } = useMatching();
-  const { updateFormData } = useFormStore();
-
   const form = useForm<DemoFormData>({
     resolver: zodResolver(demoFormSchema),
     defaultValues: {
@@ -78,41 +69,11 @@ export function DemoSection() {
     },
   });
 
-  // 폼 제출 핸들러
-  const onSubmit = async (data: DemoFormData) => {
-    console.group("[DemoSection] 폼 제출");
-    console.log("폼 데이터:", data);
-    console.groupEnd();
-
-    // formStore에 데이터 저장
-    updateFormData(data);
-
-    try {
-      // 매칭 실행
-      await executeMatching(data);
-      setShowResults(true);
-
-      // 결과 섹션으로 스크롤
-      setTimeout(() => {
-        const resultsElement = document.getElementById("demo-results");
-        if (resultsElement) {
-          resultsElement.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }, 500);
-    } catch (err) {
-      console.error("[DemoSection] 매칭 실패:", err);
-    }
+  // 폼 제출 핸들러 (비활성화됨)
+  const onSubmit = (data: DemoFormData) => {
+    // 제출 비활성화 - 아무 동작도 하지 않음
+    console.log("[DemoSection] 제출 비활성화됨:", data);
   };
-
-  // 로그: Demo 섹션 렌더링 정보
-  React.useEffect(() => {
-    console.group("[DemoSection] 렌더링 정보");
-    console.log("로딩 상태:", isLoading);
-    console.log("에러:", error);
-    console.log("결과 표시:", showResults);
-    console.log("결과 개수:", currentResult?.recommendations.length || 0);
-    console.groupEnd();
-  }, [isLoading, error, showResults, currentResult]);
 
   return (
     <section
@@ -201,81 +162,20 @@ export function DemoSection() {
                   </div>
                 </div>
 
-                {/* 에러 메시지 */}
-                {error && (
-                  <div
-                    className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-800 dark:text-red-200"
-                    role="alert"
-                    aria-live="assertive"
-                  >
-                    {error}
-                  </div>
-                )}
-
-                {/* 제출 버튼 */}
+                {/* 제출 버튼 (비활성화) */}
                 <Button
                   type="submit"
                   size="lg"
                   className="w-full"
-                  disabled={isLoading}
-                  aria-label={isLoading ? "매칭 중입니다..." : "추천 받기"}
+                  disabled={true}
+                  aria-label="추천 받기 (비활성화됨)"
                 >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
-                      AI가 분석 중입니다...
-                    </>
-                  ) : (
-                    "추천 받기"
-                  )}
+                  추천 받기
                 </Button>
               </form>
             </Form>
           </CardContent>
         </Card>
-
-        {/* 결과 표시 */}
-        {showResults && currentResult && currentResult.recommendations.length > 0 && (
-          <div
-            id="demo-results"
-            className="mt-12"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            <h3 className="text-2xl font-bold text-center mb-8 text-gray-900 dark:text-white">
-              추천 결과
-            </h3>
-            <div
-              className="grid grid-cols-1 md:grid-cols-3 gap-6"
-              role="list"
-              aria-label="추천 상품 목록"
-            >
-              {currentResult.recommendations.slice(0, 3).map((product, index) => (
-                <div key={product.product_id} role="listitem">
-                  <RecommendationCard
-                    product={product}
-                    rank={index + 1}
-                    onProductClick={(product) => {
-                      console.log("[DemoSection] 상품 클릭:", product.product_id);
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* 결과 없음 */}
-        {showResults && currentResult && currentResult.recommendations.length === 0 && (
-          <div
-            className="mt-12 p-8 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg text-center"
-            role="alert"
-          >
-            <p className="text-lg text-yellow-800 dark:text-yellow-200">
-              조건에 맞는 보조기기를 찾지 못했습니다. 다른 조건으로 다시 시도해보세요.
-            </p>
-          </div>
-        )}
       </div>
     </section>
   );
