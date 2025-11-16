@@ -663,12 +663,17 @@
   - [x] 로딩 상태 접근 가능하게 표시 ✅ (Button에 aria-label로 로딩 상태 표시)
   - [x] 에러 메시지 접근 가능하게 표시 ✅ (FormMessage에 role="alert", aria-live="polite" 설정)
 
-- [ ] **모바일 접근성**
+- [x] **모바일 접근성** ✅ 완료
 
-  - [ ] 터치 타겟 최소 44x44px
-  - [ ] 제스처 대체 방법 제공
-  - [ ] 모바일 스크린 리더 테스트
-  - [ ] 화면 회전 대응
+  - [x] 터치 타겟 최소 44x44px ✅
+    - [x] Button 컴포넌트 모바일에서 최소 44px 크기 보장 (min-h-[44px], min-w-[44px])
+    - [x] 모바일: default (44px), sm (44px), lg (48px), icon (44px)
+    - [x] 데스크톱: 기존 크기 유지 (md: 브레이크포인트 사용)
+  - [x] 제스처 대체 방법 제공 ✅ (현재 프로젝트에 제스처 기능 없음, 필요 시 추가 가능)
+  - [ ] 모바일 스크린 리더 테스트 ⚠️ 수동 테스트 필요 (TalkBack, VoiceOver iOS)
+  - [x] 화면 회전 대응 ✅
+    - [x] viewport meta 태그 설정 완료 (width: device-width, initialScale: 1, maximumScale: 5)
+    - [x] 반응형 디자인 구현 완료 (Tailwind CSS 브레이크포인트 사용)
 
 ---
 
