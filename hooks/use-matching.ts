@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { useMatchingStore } from "@/store/matchingStore";
 import { useFormStore, MatchingFormData } from "@/store/formStore";
 import { getMatchingRecommendations, APIError } from "@/lib/api/matching";
-import { analytics } from "@/lib/api/analytics";
+import { trackEvent } from "@/lib/api/analytics";
 import { ga4 } from "@/lib/analytics/ga4";
 
 /**
@@ -61,7 +61,7 @@ export function useMatching() {
       setStoreError(null);
 
       // 분석 이벤트: 매칭 요청 시작
-      await analytics.trackEvent({
+      await trackEvent({
         event_name: "matching_request_start",
         event_data: {
           primary_body_part: dataToUse.primary_body_part,
@@ -85,7 +85,7 @@ export function useMatching() {
         addToHistory(result);
 
         // 분석 이벤트: 매칭 성공
-        await analytics.trackEvent({
+        await trackEvent({
           event_name: "matching_request_success",
           event_data: {
             matching_id: result.matching_id,
@@ -114,7 +114,7 @@ export function useMatching() {
         setStoreError(errorMessage);
 
         // 분석 이벤트: 매칭 실패
-        await analytics.trackEvent({
+        await trackEvent({
           event_name: "matching_request_failure",
           event_data: {
             error: errorMessage,

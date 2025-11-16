@@ -44,6 +44,23 @@ export function TextToSpeech({ className }: TextToSpeechProps) {
     setIsSupported("speechSynthesis" in window)
   }, [])
 
+  // 에러 코드를 읽기 쉬운 이름으로 변환
+  const getErrorName = (errorCode: SpeechSynthesisErrorCode): string => {
+    const errorNames: Record<SpeechSynthesisErrorCode, string> = {
+      "canceled": "취소됨",
+      "interrupted": "중단됨",
+      "audio-busy": "오디오 사용 중",
+      "audio-hardware": "오디오 하드웨어 오류",
+      "network": "네트워크 오류",
+      "synthesis-unavailable": "음성 합성 불가",
+      "synthesis-failed": "음성 합성 실패",
+      "language-unavailable": "언어 사용 불가",
+      "text-too-long": "텍스트가 너무 김",
+      "invalid-argument": "잘못된 인수",
+    }
+    return errorNames[errorCode] || "알 수 없는 오류"
+  }
+
   // 텍스트 추출 함수
   const extractText = (): string => {
     const main = document.querySelector("main") || document.body
@@ -94,10 +111,18 @@ export function TextToSpeech({ className }: TextToSpeechProps) {
     }
 
     utterance.onerror = (e) => {
-      console.error("[TextToSpeech] 오류:", e)
+      // Web Speech API 에러 처리
+      const errorMessage = e.error 
+        ? `TTS 오류: ${e.error} (${getErrorName(e.error)})`
+        : "TTS 오류가 발생했습니다"
+      
+      console.warn("[TextToSpeech] 오류:", errorMessage, e)
       setIsReading(false)
       setIsPaused(false)
       setCurrentText("")
+      
+      // 사용자에게 친화적인 메시지 표시 (선택사항)
+      // alert는 사용자 경험을 해칠 수 있으므로 콘솔 로그만 사용
     }
 
     utteranceRef.current = utterance

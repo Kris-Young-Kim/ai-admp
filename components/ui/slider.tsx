@@ -77,6 +77,13 @@ const Slider = React.forwardRef<
     return `${value}${unit}`
   }
 
+  // value가 배열이 아니면 배열로 변환 (Radix UI Slider는 배열이 필요)
+  const sliderValue = Array.isArray(props.value)
+    ? props.value
+    : props.value !== undefined && props.value !== null
+    ? [props.value]
+    : [props.min || 0]
+
   return (
     <div className="w-full">
       <SliderPrimitive.Root
@@ -85,20 +92,25 @@ const Slider = React.forwardRef<
           "relative flex w-full touch-none select-none items-center",
           className
         )}
+        value={sliderValue}
         onValueChange={handleValueChange}
-        {...props}
+        min={props.min}
+        max={props.max}
+        step={props.step}
+        disabled={props.disabled}
+        aria-label={props["aria-label"]}
       >
         <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary">
           <SliderPrimitive.Range className="absolute h-full bg-primary" />
         </SliderPrimitive.Track>
-        {props.value?.map((val, i) => (
+        {sliderValue.map((val, i) => (
           <SliderPrimitive.Thumb
             key={i}
             className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
             role="slider"
             aria-label={
               props["aria-label"]
-                ? props.value && props.value.length > 1
+                ? sliderValue.length > 1
                   ? `${props["aria-label"]} ${i + 1}`
                   : props["aria-label"]
                 : `슬라이더 ${i + 1}`
@@ -116,13 +128,13 @@ const Slider = React.forwardRef<
           </SliderPrimitive.Thumb>
         ))}
       </SliderPrimitive.Root>
-      {showValue && props.value && (
+      {showValue && sliderValue && (
         <div className="mt-2 flex justify-between text-xs text-muted-foreground">
           <span>{formatValue(props.min || 0)}</span>
           <span className="font-medium text-foreground">
-            {props.value.length === 1
-              ? formatValue(props.value[0])
-              : `${formatValue(props.value[0])} - ${formatValue(props.value[1])}`}
+            {sliderValue.length === 1
+              ? formatValue(sliderValue[0])
+              : `${formatValue(sliderValue[0])} - ${formatValue(sliderValue[1])}`}
           </span>
           <span>{formatValue(props.max || 100)}</span>
         </div>
@@ -182,14 +194,28 @@ export function FormSlider({
         <Controller
           name={name}
           control={control}
-          render={({ field }) => (
-            <Slider
-              value={field.value || [sliderProps.min || 0]}
-              onValueChange={field.onChange}
-              aria-label={label || name}
-              {...sliderProps}
-            />
-          )}
+          render={({ field }) => {
+            // field.value가 배열이 아니면 배열로 변환
+            // Radix UI Slider는 value가 배열이어야 함
+            const sliderValue = Array.isArray(field.value)
+              ? field.value
+              : field.value !== undefined && field.value !== null
+              ? [field.value]
+              : [sliderProps.min || 0]
+
+            return (
+              <Slider
+                value={sliderValue}
+                onValueChange={(value) => {
+                  // 배열의 첫 번째 값을 폼 필드에 저장
+                  // 단일 슬라이더이므로 첫 번째 값만 사용
+                  field.onChange(value[0])
+                }}
+                aria-label={label || name}
+                {...sliderProps}
+              />
+            )
+          }}
         />
       </FormControl>
       <FormMessage />
