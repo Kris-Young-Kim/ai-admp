@@ -44,7 +44,7 @@ export function ExpertCard({ expert, className }: ExpertCardProps) {
           {expert.profile_image_url ? (
             <img
               src={expert.profile_image_url}
-              alt={expert.name}
+              alt={`전문가 ${expert.name}의 프로필 사진`}
               className="w-16 h-16 rounded-full object-cover"
             />
           ) : (

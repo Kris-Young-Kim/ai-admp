@@ -108,7 +108,7 @@ export function TestimonialCarousel({
               {currentTestimonial.profile_image_url ? (
                 <img
                   src={currentTestimonial.profile_image_url}
-                  alt={currentTestimonial.name}
+                  alt={`사용자 ${currentTestimonial.name}의 프로필 사진`}
                   className="w-12 h-12 rounded-full object-cover"
                 />
               ) : (

@@ -98,7 +98,7 @@ export function RecommendationCard({
           <div className="w-full h-48 bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
             <img
               src={product.image_url}
-              alt={product.name}
+              alt={`${product.name} 보조기기 이미지`}
               className="w-full h-full object-cover"
             />
           </div>
