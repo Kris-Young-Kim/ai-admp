@@ -244,61 +244,71 @@
     - [x] 키보드 포커스 시에만 표시
     - [x] 접근성 (스크린 리더 최적화)
 
-### 섹션 컴포넌트 (7/7 완료하면 15%)
+### 섹션 컴포넌트 (7/7 완료하면 15%) ✅ 완료
 
-- [ ] **Hero 섹션**
+- [x] **Hero 섹션** ✅ 완료
 
-  - [ ] 헤드라인 + 서브카피
-  - [ ] 백그라운드 이미지/애니메이션
-  - [ ] CTA 버튼 그룹
-  - [ ] 신뢰 배지
-  - [ ] 반응형 레이아웃
-  - [ ] 애니메이션 (fade-in, slide-up)
-  - [ ] A/B 테스트 변수 관리
-  - Cursor 프롬프트: `HeroSection.tsx - A/B 테스트 지원, 3개 헤드라인 변형 포함`
+  - [x] 헤드라인 + 서브카피
+  - [x] 그라데이션 배경
+  - [x] CTA 버튼 그룹
+  - [x] 신뢰 배지
+  - [x] 반응형 레이아웃
+  - [x] 애니메이션 (fade-in, slide-up)
+  - [x] A/B 테스트 변수 관리 (3개 헤드라인 변형)
+  - [x] `components/sections/hero-section.tsx` 구현 완료
 
-- [ ] **문제 공감 섹션**
+- [x] **문제 공감 섹션** ✅ 완료
 
-  - [ ] 3개 문제 카드
-  - [ ] 각 카드 아이콘 + 제목 + 설명
-  - [ ] 호버 애니메이션
-  - [ ] Bento Grid 레이아웃
-  - [ ] 스크롤 트리거 애니메이션
+  - [x] 3개 문제 카드
+  - [x] 각 카드 아이콘 + 제목 + 설명
+  - [x] 호버 애니메이션
+  - [x] Bento Grid 레이아웃
+  - [x] 스크롤 트리거 애니메이션
+  - [x] `components/sections/pain-points-section.tsx` 구현 완료
 
-- [ ] **AI 데모 섹션**
+- [x] **AI 데모 섹션** ✅ 완료
 
-  - [ ] 3개 질문 폼 (라디오, 체크박스, 슬라이더)
-  - [ ] 폼 검증 로직
-  - [ ] 로딩 상태 (스피너)
-  - [ ] 실시간 추천 결과 표시
-  - [ ] 결과 카드 (상품 3개)
-  - [ ] 에러 처리
+  - [x] 3개 질문 폼 (라디오, 체크박스, 슬라이더)
+  - [x] 폼 검증 로직 (Zod 스키마)
+  - [x] 로딩 상태 (스피너)
+  - [x] 실시간 추천 결과 표시
+  - [x] 결과 카드 (상품 3개) - `RecommendationCard` 컴포넌트
+  - [x] 에러 처리
+  - [x] `components/sections/demo-section.tsx` 구현 완료
+  - [x] `components/features/recommendation-card.tsx` 구현 완료
 
-- [ ] **신뢰 구축 섹션**
+- [x] **신뢰 구축 섹션** ✅ 완료
 
-  - [ ] 수치 카드 (Counter 애니메이션)
-  - [ ] 전문가 프로필 카드
-  - [ ] 보안 배지 (SSL, GDPR)
-  - [ ] 파트너 로고 월
+  - [x] 수치 카드 (Counter 애니메이션)
+  - [x] 전문가 프로필 카드 - `ExpertCard` 컴포넌트
+  - [x] 보안 배지 (SSL, GDPR)
+  - [x] `components/sections/trust-section.tsx` 구현 완료
+  - [x] `components/features/expert-card.tsx` 구현 완료
+  - [ ] 파트너 로고 월 (선택사항)
 
-- [ ] **작동 방식 섹션**
+- [x] **작동 방식 섹션** ✅ 완료
 
-  - [ ] 4단계 프로세스 다이어그램
-  - [ ] 각 단계 설명 텍스트
-  - [ ] 애니메이션 (스테거드 진입)
+  - [x] 4단계 프로세스 다이어그램
+  - [x] 각 단계 설명 텍스트
+  - [x] 애니메이션 (스테거드 진입)
+  - [x] `components/sections/how-it-works-section.tsx` 구현 완료
 
-- [ ] **후기 섹션**
+- [x] **후기 섹션** ✅ 완료
 
-  - [ ] 후기 카드 컴포넌트
-  - [ ] 모바일 캐러셀
-  - [ ] 페이징 인디케이터
-  - [ ] 사용자 프로필 사진
+  - [x] 후기 카드 컴포넌트
+  - [x] 모바일 캐러셀
+  - [x] 페이징 인디케이터
+  - [x] 사용자 프로필 사진
+  - [x] `components/sections/testimonial-section.tsx` 구현 완료
+  - [x] `components/features/testimonial-carousel.tsx` 구현 완료
 
-- [ ] **요금제 섹션**
-  - [ ] 3개 요금제 카드
-  - [ ] 기능 체크리스트
-  - [ ] 권장 배지 (카드 2)
-  - [ ] 가격 표시
+- [x] **요금제 섹션** ✅ 완료
+  - [x] 3개 요금제 카드
+  - [x] 기능 체크리스트
+  - [x] 권장 배지 (카드 2)
+  - [x] 가격 표시
+  - [x] `components/sections/pricing-section.tsx` 구현 완료
+  - [x] `components/features/pricing-card.tsx` 구현 완료
 
 ---
 
