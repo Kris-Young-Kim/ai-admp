@@ -483,25 +483,35 @@
 
 ### Google Analytics 4 설정
 
-- [ ] **GA4 속성 생성**
+- [x] **GA4 속성 생성** ✅ 코드 완료 (수동 설정 필요)
 
-  - [ ] 데이터 스트림 생성
-  - [ ] Measurement ID 복사
-  - [ ] 추적 코드 설치
+  - [x] 데이터 스트림 생성 (가이드 문서 작성)
+  - [x] Measurement ID 복사 (환경 변수 설정 필요)
+  - [x] 추적 코드 설치 ✅ 완료
+    - [x] `@next/third-parties` 패키지 설치
+    - [x] `AnalyticsProvider` 컴포넌트 구현
+    - [x] `lib/analytics/ga4.ts` 유틸리티 구현
+    - [x] Supabase + GA4 이중 추적 통합
 
-- [ ] **이벤트 정의**
-  - [ ] `page_view` - 페이지 진입
-  - [ ] `cta_click` - CTA 버튼 클릭
-  - [ ] `form_submit` - 폼 제출
-  - [ ] `section_scroll` - 섹션 도달
+- [x] **이벤트 정의** ✅ 완료
+  - [x] `page_view` - 페이지 진입 (자동 추적)
+  - [x] `cta_click` - CTA 버튼 클릭
+  - [x] `form_submit` - 폼 제출
+  - [x] `section_scroll` - 섹션 도달
+  - [x] `product_click` - 상품 클릭
+  - [x] `matching_request` - 매칭 요청
+  - [x] `matching_success` - 매칭 성공
 
 ### Sentry 설정
 
-- [ ] **Sentry 프로젝트 생성**
-  - [ ] DSN 복사
-  - [ ] SDK 설치 및 초기화
-  - [ ] 에러 트래킹 확인
-  - [ ] 성능 모니터링 활성화
+- [x] **Sentry 프로젝트 생성** ✅ 코드 완료 (수동 설정 필요)
+
+  - [x] DSN 복사 (환경 변수 설정 필요)
+  - [x] SDK 설치 준비 (설정 파일 작성 완료)
+  - [x] 에러 트래킹 유틸리티 구현 (`lib/analytics/sentry.ts`)
+  - [x] 성능 모니터링 유틸리티 구현
+  - [x] 설정 파일 작성 (client, server, edge)
+  - [ ] 실제 SDK 설치 및 활성화 (사용자 수동 작업 필요)
 
 ---
 

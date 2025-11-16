@@ -1,4 +1,5 @@
 import { APIError } from "./matching";
+import { sendGA4Event, ga4 } from "@/lib/analytics/ga4";
 
 /**
  * 분석 API 클라이언트
@@ -110,46 +111,60 @@ export const analytics = {
   /**
    * 페이지 뷰 추적
    */
-  pageView: (page: string, data?: Record<string, any>) =>
+  pageView: (page: string, data?: Record<string, any>) => {
+    // Supabase에 저장
     trackEvent({
       event_name: "page_view",
       event_data: { page, ...data },
-    }),
+    });
+    // GA4에도 전송
+    if (typeof window !== "undefined") {
+      sendGA4Event("page_view", { page, ...data });
+    }
+  },
 
   /**
    * CTA 버튼 클릭 추적
    */
-  ctaClick: (location: string, elementId?: string) =>
+  ctaClick: (location: string, elementId?: string) => {
     trackEvent({
       event_name: "cta_click",
       event_data: { location, element_id: elementId },
-    }),
+    });
+    ga4.ctaClick(location, elementId);
+  },
 
   /**
    * 폼 제출 추적
    */
-  formSubmit: (formName: string, success: boolean) =>
+  formSubmit: (formName: string, success: boolean) => {
     trackEvent({
       event_name: "form_submit",
       event_data: { form_name: formName, success },
-    }),
+    });
+    ga4.formSubmit(formName, success);
+  },
 
   /**
    * 섹션 스크롤 추적
    */
-  sectionScroll: (sectionName: string) =>
+  sectionScroll: (sectionName: string) => {
     trackEvent({
       event_name: "section_scroll",
       event_data: { section_name: sectionName },
-    }),
+    });
+    ga4.sectionScroll(sectionName);
+  },
 
   /**
    * 상품 클릭 추적
    */
-  productClick: (productId: string, productName: string) =>
+  productClick: (productId: string, productName: string) => {
     trackEvent({
       event_name: "product_click",
       event_data: { product_id: productId, product_name: productName },
-    }),
+    });
+    ga4.productClick(productId, productName);
+  },
 };
 

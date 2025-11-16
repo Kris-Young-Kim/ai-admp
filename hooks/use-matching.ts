@@ -5,6 +5,7 @@ import { useMatchingStore } from "@/store/matchingStore";
 import { useFormStore, MatchingFormData } from "@/store/formStore";
 import { getMatchingRecommendations, APIError } from "@/lib/api/matching";
 import { analytics } from "@/lib/api/analytics";
+import { ga4 } from "@/lib/analytics/ga4";
 
 /**
  * 매칭 로직 커스텀 훅
@@ -68,6 +69,13 @@ export function useMatching() {
           budget_range: `${dataToUse.budget_min}-${dataToUse.budget_max}`,
         },
       });
+      
+      // GA4 이벤트 전송
+      ga4.matchingRequest({
+        primary_body_part: dataToUse.primary_body_part,
+        activities_count: dataToUse.activities.length,
+        budget_range: `${dataToUse.budget_min}-${dataToUse.budget_max}`,
+      });
 
       try {
         const result = await getMatchingRecommendations(dataToUse);
@@ -85,6 +93,15 @@ export function useMatching() {
             processing_time_ms: result.processing_time_ms,
           },
         });
+        
+        // GA4 이벤트 전송
+        if (result.matching_id) {
+          ga4.matchingSuccess({
+            matching_id: result.matching_id,
+            recommendations_count: result.recommendations.length,
+            processing_time_ms: result.processing_time_ms,
+          });
+        }
 
         return result;
       } catch (err) {
