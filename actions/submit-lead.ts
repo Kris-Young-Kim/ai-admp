@@ -1,6 +1,6 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/server";
 
 /**
  * @file actions/submit-lead.ts
@@ -53,8 +53,16 @@ export async function submitLead(
       };
     }
 
+    // 환경 변수 검증
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      console.error("Supabase 환경 변수가 설정되지 않았습니다.");
+      return {
+        success: false,
+        error: "서버 설정 오류가 발생했습니다. 관리자에게 문의해주세요.",
+      };
+    }
+
     // Supabase 클라이언트 생성 (공개 데이터이므로 anon key 사용)
-    const { createPublicClient } = await import("@/lib/supabase/server");
     const supabase = createPublicClient();
 
     // leads 테이블에 데이터 저장
@@ -70,9 +78,20 @@ export async function submitLead(
 
     if (error) {
       console.error("Supabase 저장 오류:", error);
+      console.error("에러 코드:", error.code);
+      console.error("에러 메시지:", error.message);
+      console.error("에러 상세:", error.details);
+      console.error("에러 힌트:", error.hint);
+      
+      // 개발 환경에서는 더 자세한 에러 메시지 제공
+      const isDevelopment = process.env.NODE_ENV === "development";
+      const errorMessage = isDevelopment
+        ? `정보 저장 중 오류가 발생했습니다: ${error.message} (코드: ${error.code})`
+        : "정보 저장 중 오류가 발생했습니다. 다시 시도해주세요.";
+      
       return {
         success: false,
-        error: "정보 저장 중 오류가 발생했습니다. 다시 시도해주세요.",
+        error: errorMessage,
       };
     }
 
