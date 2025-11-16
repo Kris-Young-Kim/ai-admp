@@ -583,13 +583,20 @@
   - [x] ARIA 헬퍼 함수 구현 (`lib/accessibility/aria-helper.ts`)
   - [x] 페이지에 ARIA 속성 추가 (aria-label 등)
 
-- [ ] **React Aria 컴포넌트 통합**
+- [x] **React Aria 컴포넌트 통합** ✅ 완료
 
-  - [ ] `@react-aria/components` 패키지 설치
-  - [ ] 기존 컴포넌트를 React Aria로 마이그레이션
-  - [ ] 키보드 네비게이션 자동 지원
-  - [ ] 포커스 관리 자동화
-  - [ ] 스크린 리더 최적화
+  - [x] `@react-aria/interactions`, `@react-aria/focus`, `@react-aria/utils` 패키지 설치
+  - [x] `@react-aria/button`, `@react-aria/textfield` 등 핵심 패키지 설치
+  - [x] Button 컴포넌트 React Aria 통합 (`useButton`, `useFocusRing`)
+  - [x] Input 컴포넌트 React Aria 통합 (`useTextField`, `useFocusRing`)
+  - [x] 키보드 네비게이션 자동 지원
+  - [x] 포커스 관리 자동화
+  - [x] 스크린 리더 최적화
+  - [x] `components/ui/button.tsx` 마이그레이션 완료
+  - [x] `components/ui/input.tsx` 마이그레이션 완료
+  - [ ] FormGroup 컴포넌트 마이그레이션 (react-hook-form 통합으로 복잡, 선택사항)
+  - [ ] Dialog 컴포넌트 마이그레이션 (선택사항)
+  - [ ] Slider 컴포넌트 마이그레이션 (선택사항)
 
 ### WCAG 2.1 AA 준수 검증
 

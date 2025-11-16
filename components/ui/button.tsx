@@ -1,14 +1,16 @@
 /**
  * @file button.tsx
- * @description Button 컴포넌트 - 접근성 최적화된 버튼 컴포넌트
+ * @description Button 컴포넌트 - React Aria 통합으로 접근성 향상
  *
  * 이 컴포넌트는 WCAG 2.1 AA 기준을 준수하는 접근성 기능을 포함합니다.
+ * React Aria의 useButton 훅을 사용하여 키보드 네비게이션과 포커스 관리를 자동화합니다.
  *
  * 주요 접근성 기능:
- * 1. 키보드 네비게이션 지원 (Tab, Enter, Space)
+ * 1. 키보드 네비게이션 지원 (Tab, Enter, Space) - React Aria 자동 처리
  * 2. 포커스 인디케이터 (focus-visible 스타일)
  * 3. 스크린 리더 지원 (aria-label 사용 권장)
  * 4. disabled 상태 접근성 (aria-disabled 자동 처리)
+ * 5. 포커스 관리 자동화 (React Aria)
  *
  * 접근성 사용 가이드:
  * - 텍스트가 있는 버튼: children으로 텍스트 제공 (aria-label 불필요)
@@ -25,19 +27,20 @@
  * <Button variant="icon" aria-label="메뉴 열기">
  *   <MenuIcon />
  * </Button>
- *
- * // 접근성 검증 완료
- * <Button aria-label="접근성 속성 검증">검증</Button>
  * ```
  *
  * @dependencies
  * - @radix-ui/react-slot: asChild prop 지원
+ * - @react-aria/button: 버튼 접근성 훅
  * - class-variance-authority: variant 시스템
  */
 
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
+import { useButton } from "@react-aria/button"
+import { useFocusRing } from "@react-aria/focus"
+import type { AriaButtonProps } from "@react-aria/button"
 
 import { cn } from "@/lib/utils"
 
@@ -72,22 +75,56 @@ const buttonVariants = cva(
   }
 )
 
+interface ButtonProps
+  extends React.ComponentProps<"button">,
+    VariantProps<typeof buttonVariants>,
+    AriaButtonProps<"button"> {
+  asChild?: boolean
+}
+
 function Button({
   className,
   variant,
   size,
   asChild = false,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
+}: ButtonProps) {
+  const ref = React.useRef<HTMLButtonElement>(null)
+  
+  // React Aria: 버튼 접근성 훅
+  const { buttonProps, isPressed } = useButton(
+    {
+      ...props,
+      elementType: asChild ? undefined : "button",
+    },
+    ref
+  )
+
+  // React Aria: 포커스 링 관리
+  const { isFocusVisible, focusProps } = useFocusRing()
+
+  // 로그: Button 컴포넌트 렌더링 정보
+  React.useEffect(() => {
+    console.group("[Button] React Aria 통합 정보")
+    console.log("버튼 props:", buttonProps)
+    console.log("포커스 상태:", isFocusVisible)
+    console.log("누름 상태:", isPressed)
+    console.groupEnd()
+  }, [buttonProps, isFocusVisible, isPressed])
+
   const Comp = asChild ? Slot : "button"
 
   return (
     <Comp
+      ref={ref}
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size, className }),
+        isFocusVisible && "ring-2 ring-ring ring-offset-2",
+        isPressed && "scale-95"
+      )}
+      {...buttonProps}
+      {...focusProps}
       {...props}
     />
   )
