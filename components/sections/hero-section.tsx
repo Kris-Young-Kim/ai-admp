@@ -135,9 +135,9 @@ export function HeroSection() {
             asChild
             size="lg"
             className="text-lg px-8 py-6"
-            aria-label={`${variant.ctaPrimary} - 데모 섹션으로 이동`}
+            aria-label={`${variant.ctaPrimary} - 매칭 질문 페이지로 이동`}
           >
-            <a href="#demo">{variant.ctaPrimary}</a>
+            <a href="/matching/questions">{variant.ctaPrimary}</a>
           </Button>
           <Button
             asChild

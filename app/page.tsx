@@ -74,9 +74,9 @@ export default function Home() {
               asChild
               size="lg"
               className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6"
-              aria-label="무료로 시작하기 - 데모 섹션으로 이동"
+              aria-label="무료로 시작하기 - 매칭 질문 페이지로 이동"
             >
-              <a href="#demo">무료로 시작하기</a>
+              <a href="/matching/questions">무료로 시작하기</a>
             </Button>
           </div>
         </section>
