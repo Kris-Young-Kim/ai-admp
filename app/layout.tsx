@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SaaS 템플릿",
-  description: "Next.js + Clerk + Supabase 보일러플레이트",
+  title: "AI 보조기기 매칭",
+  description: "AI가 당신에게 가장 적합한 보조기기를 추천해드립니다",
   viewport: {
     width: "device-width",
     initialScale: 1,

@@ -34,19 +34,19 @@ const painPoints: PainPoint[] = [
     icon: Search,
     title: "적합한 보조기기를 찾기 어려워요",
     description:
-      "수많은 제품 중에서 자신에게 맞는 것을 선택하는 것이 어렵습니다.",
+      "수많은 제품 중에서\n자신에게 맞는 것을 선택하는 것이 어렵습니다.",
   },
   {
     icon: FileText,
     title: "제품 정보가 너무 복잡해요",
     description:
-      "기술적인 용어와 복잡한 설명으로 이해하기 어렵습니다.",
+      "기술적인 용어와 복잡한 설명으로\n이해하기 어렵습니다.",
   },
   {
     icon: BarChart3,
     title: "직접 비교하기 힘들어요",
     description:
-      "여러 제품을 한눈에 비교하고 평가하기 어렵습니다.",
+      "여러 제품을 한눈에 비교하고\n평가하기 어렵습니다.",
   },
 ];
 
@@ -139,7 +139,7 @@ export function PainPointsSection() {
                     <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
                       {point.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300">
+                    <p className="text-gray-600 dark:text-gray-300 whitespace-pre-line leading-relaxed">
                       {point.description}
                     </p>
                   </div>

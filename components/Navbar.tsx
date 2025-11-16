@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <header className="flex justify-between items-center p-4 gap-4 h-16 max-w-7xl mx-auto">
       <Link href="/" className="text-2xl font-bold">
-        SaaS Template
+        AI 보조기기 매칭
       </Link>
       <div className="flex gap-4 items-center">
         <SignedOut>

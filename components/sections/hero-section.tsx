@@ -34,19 +34,19 @@ interface HeroVariant {
 const heroVariants: HeroVariant[] = [
   {
     headline: "AI 기반 보조기기 매칭 서비스",
-    subheadline: "당신에게 가장 적합한 보조기기를 AI가 추천해드립니다",
+    subheadline: "당신에게 가장 적합한 보조기기를\nAI가 추천해드립니다",
     ctaPrimary: "무료로 시작하기",
     ctaSecondary: "작동 방식 알아보기",
   },
   {
     headline: "맞춤형 보조기기 추천, AI가 도와드립니다",
-    subheadline: "복잡한 선택 과정 없이, 당신의 필요에 딱 맞는 보조기기를 찾아보세요",
+    subheadline: "복잡한 선택 과정 없이,\n당신의 필요에 딱 맞는 보조기기를 찾아보세요",
     ctaPrimary: "지금 시작하기",
     ctaSecondary: "더 알아보기",
   },
   {
     headline: "스마트한 보조기기 선택의 시작",
-    subheadline: "AI 기술로 당신의 일상에 가장 적합한 보조기기를 추천합니다",
+    subheadline: "AI 기술로 당신의 일상에\n가장 적합한 보조기기를 추천합니다",
     ctaPrimary: "무료 체험하기",
     ctaSecondary: "서비스 소개",
   },
@@ -112,6 +112,7 @@ export function HeroSection() {
             "text-xl md:text-2xl lg:text-3xl",
             "text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto",
             "transition-all duration-700 delay-200",
+            "whitespace-pre-line leading-relaxed",
             isVisible
               ? "translate-y-0 opacity-100"
               : "translate-y-8 opacity-0"
