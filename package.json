@@ -13,7 +13,11 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug",
-    "test:a11y": "playwright test tests/e2e/accessibility.spec.ts"
+    "test:a11y": "playwright test tests/e2e/accessibility.spec.ts",
+    "security:audit": "npm audit --audit-level=moderate",
+    "security:fix": "npm audit fix",
+    "security:check": "npm audit --audit-level=high && echo '✅ 보안 검사 완료'",
+    "prebuild": "npm run lint && npm run security:check"
   },
   "dependencies": {
     "@clerk/backend": "^1.33.1",
