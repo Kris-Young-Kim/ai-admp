@@ -619,15 +619,23 @@
   - [x] 키보드 단축키 문서화 (`docs/ACCESSIBILITY_GUIDE.md`)
   - [x] 스킵 링크 제공 (주 콘텐츠로 바로 이동) - `SkipLink` 컴포넌트
 
-- [ ] **스크린 리더 테스트**
+- [ ] **스크린 리더 테스트** (수동 테스트 필요)
 
-  - [ ] NVDA (Windows) 테스트
-  - [ ] JAWS (Windows) 테스트
-  - [ ] VoiceOver (macOS/iOS) 테스트
-  - [ ] TalkBack (Android) 테스트
-  - [ ] 모든 버튼/폼에 적절한 라벨 확인
-  - [ ] 의미 전달 확인 (컨텍스트 이해)
-  - [ ] 랜드마크 네비게이션 테스트
+  - [ ] NVDA (Windows) 테스트 ⚠️ 수동 작업 필요
+  - [ ] JAWS (Windows) 테스트 ⚠️ 수동 작업 필요
+  - [ ] VoiceOver (macOS/iOS) 테스트 ⚠️ 수동 작업 필요
+  - [ ] TalkBack (Android) 테스트 ⚠️ 수동 작업 필요
+  - [x] 모든 버튼/폼에 적절한 라벨 확인 ✅ (코드 레벨 완료)
+    - [x] Button 컴포넌트에 React Aria 통합 완료
+    - [x] 모든 섹션 버튼에 aria-label 제공 완료
+    - [x] FormGroup, FormSlider, Input 모두 라벨 연결 완료
+  - [ ] 의미 전달 확인 (컨텍스트 이해) ⚠️ 수동 테스트 필요
+  - [x] 랜드마크 네비게이션 테스트 ✅ (코드 레벨 완료)
+    - [x] 시맨틱 HTML 사용 (main, section, nav 등)
+    - [x] aria-labelledby로 섹션 제목 연결 완료
+    - [x] SkipLink 컴포넌트 구현 완료
+
+  > 📖 상세 테스트 계획: [SCREEN_READER_TEST_PLAN.md](./SCREEN_READER_TEST_PLAN.md) 참고
 
 - [ ] **이미지 및 미디어 접근성**
 
