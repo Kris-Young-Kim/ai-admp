@@ -150,7 +150,7 @@
   - [x] `tsconfig.json` (TypeScript 설정)
   - [x] `next.config.ts` (Next.js 설정)
 
-- [x] **NPM 패키지 설치**
+- [x] **PNPM 패키지 설치**
   - [x] Next.js 15.5.6, React 19, TypeScript 5
   - [x] @supabase/supabase-js, @clerk/nextjs
   - [x] tailwindcss v4, postcss

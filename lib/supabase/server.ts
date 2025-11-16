@@ -31,3 +31,25 @@ export function createClerkSupabaseClient() {
     },
   });
 }
+
+/**
+ * 공개 데이터용 Supabase 클라이언트 (Server Action/Server Component용)
+ * 인증이 필요 없는 공개 데이터 접근 시 사용
+ *
+ * @example
+ * ```tsx
+ * // Server Action
+ * import { createPublicClient } from '@/lib/supabase/server';
+ *
+ * export async function myAction() {
+ *   const supabase = createPublicClient();
+ *   const { data } = await supabase.from('public_table').select('*');
+ * }
+ * ```
+ */
+export function createPublicClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+  return createClient(supabaseUrl, supabaseKey);
+}

@@ -1,133 +1,53 @@
-# 섹션 컴포넌트 개발 계획
+# 섹션 컴포넌트 개발 계획 (단순화 버전)
 
 > 작성일: 2025년 1월
-> 목표: 7개 섹션 컴포넌트 완전 구현
+> 목표: 단순화된 랜딩 페이지 구조에 맞는 최소한의 섹션 컴포넌트
 
 ---
 
-## 📋 개발 순서 및 우선순위
+## 📋 현재 구조
 
-### 1. Hero 섹션 (최우선) 🔴
-**파일**: `components/sections/hero-section.tsx`
+### ✅ 완료된 섹션
 
-**요구사항**:
-- 헤드라인 + 서브카피
-- CTA 버튼 그룹 (2개)
-- 신뢰 배지 (선택사항)
-- 반응형 레이아웃
-- 애니메이션 (fade-in, slide-up)
-- A/B 테스트 변수 관리 (3개 헤드라인 변형)
+1. **Hero 섹션** ✅ 완료
+   - **파일**: `components/sections/hero-section.tsx`
+   - **기능**: 
+     - 헤드라인 + 서브카피
+     - CTA 버튼 (정보 수집 폼으로 이동)
+     - 신뢰 배지
+     - A/B 테스트 변형 관리 (3개 헤드라인 변형)
+     - 반응형 레이아웃
+     - 애니메이션 (fade-in, slide-up)
 
-**구현 내용**:
-- `useState`로 A/B 테스트 변형 관리
-- `aria-label` 속성 추가
-- 그라데이션 배경
-- 반응형 텍스트 크기
-
----
-
-### 2. PainPoints 섹션 🔴
-**파일**: `components/sections/pain-points-section.tsx`
-
-**요구사항**:
-- 3개 문제 카드
-- 각 카드: 아이콘 + 제목 + 설명
-- 호버 애니메이션
-- Bento Grid 레이아웃
-- 스크롤 트리거 애니메이션
-
-**구현 내용**:
-- `lucide-react` 아이콘 사용
-- `Card` 컴포넌트 활용
-- Intersection Observer로 스크롤 애니메이션
+2. **정보 수집 폼 섹션** ✅ 완료
+   - **파일**: `components/lead-form.tsx`
+   - **기능**:
+     - 이름, 이메일, 연락처 입력 필드
+     - Zod 유효성 검사
+     - Server Action으로 Supabase 저장
+     - 성공/에러 메시지 표시
+     - 로딩 상태 표시
 
 ---
 
-### 3. Demo 섹션 🔴 (가장 복잡)
-**파일**: `components/sections/demo-section.tsx`
+## 📁 현재 파일 구조
 
-**요구사항**:
-- 3개 질문 폼 (라디오, 체크박스, 슬라이더)
-- 폼 검증 로직
-- 로딩 상태 (스피너)
-- 실시간 추천 결과 표시
-- 결과 카드 (상품 3개)
-- 에러 처리
+```
+components/
+├── sections/
+│   └── hero-section.tsx          ✅ 완료
+└── lead-form.tsx                 ✅ 완료
 
-**구현 내용**:
-- `use-matching` 훅 활용
-- `formStore` 연동
-- `FormGroup`, `Slider` 컴포넌트 사용
-- `RecommendationCard` 컴포넌트 생성 필요
-
----
-
-### 4. Trust 섹션 🟡
-**파일**: `components/sections/trust-section.tsx`
-
-**요구사항**:
-- 수치 카드 (Counter 애니메이션)
-- 전문가 프로필 카드
-- 보안 배지 (SSL, GDPR)
-- 파트너 로고 월 (선택사항)
-
-**구현 내용**:
-- Counter 애니메이션 (숫자 카운트업)
-- `ExpertCard` 컴포넌트 생성
-- 배지 컴포넌트
-
----
-
-### 5. HowItWorks 섹션 🟡
-**파일**: `components/sections/how-it-works-section.tsx`
-
-**요구사항**:
-- 4단계 프로세스 다이어그램
-- 각 단계 설명 텍스트
-- 애니메이션 (스테거드 진입)
-
-**구현 내용**:
-- 단계별 아이콘 및 번호
-- 스테거드 애니메이션 (순차적 등장)
-
----
-
-### 6. Testimonial 섹션 🟡
-**파일**: `components/sections/testimonial-section.tsx`
-
-**요구사항**:
-- 후기 카드 컴포넌트
-- 모바일 캐러셀
-- 페이징 인디케이터
-- 사용자 프로필 사진
-
-**구현 내용**:
-- `TestimonialCarousel` 컴포넌트 생성
-- Swiper 또는 자체 구현
-- 반응형 캐러셀
-
----
-
-### 7. Pricing 섹션 🟡
-**파일**: `components/sections/pricing-section.tsx`
-
-**요구사항**:
-- 3개 요금제 카드
-- 기능 체크리스트
-- 권장 배지 (카드 2)
-- 가격 표시
-
-**구현 내용**:
-- `PricingCard` 컴포넌트 생성
-- 체크리스트 아이콘
-- CTA 버튼
+app/
+└── page.tsx                      ✅ 완료 (Hero + 정보 수집 폼만 포함)
+```
 
 ---
 
 ## 🎨 공통 디자인 원칙
 
 ### 접근성
-- 모든 버튼에 `aria-label`
+- 모든 버튼에 `aria-label` 또는 적절한 라벨
 - 키보드 네비게이션 지원
 - 시맨틱 HTML 사용
 - 포커스 인디케이터 명확히
@@ -135,7 +55,7 @@
 ### 반응형
 - 모바일: 1열
 - 태블릿: 2열
-- 데스크톱: 3-4열
+- 데스크톱: 최대 너비 제한
 
 ### 다크 모드
 - Tailwind `dark:` 클래스 사용
@@ -148,49 +68,48 @@
 
 ---
 
-## 📁 파일 구조
+## 🔄 향후 확장 가능한 섹션 (선택사항)
 
-```
-components/
-├── sections/
-│   ├── hero-section.tsx
-│   ├── pain-points-section.tsx
-│   ├── demo-section.tsx
-│   ├── trust-section.tsx
-│   ├── how-it-works-section.tsx
-│   ├── testimonial-section.tsx
-│   └── pricing-section.tsx
-└── features/
-    ├── recommendation-card.tsx
-    ├── expert-card.tsx
-    ├── testimonial-carousel.tsx
-    └── pricing-card.tsx
-```
+필요 시 다음 섹션들을 추가할 수 있습니다:
 
----
+### 1. 문제 공감 섹션 (선택사항)
+- 3개 문제 카드
+- 각 카드: 아이콘 + 제목 + 설명
+- 호버 애니메이션
 
-## 🔄 통합 순서
+### 2. 작동 방식 섹션 (선택사항)
+- 4단계 프로세스 다이어그램
+- 각 단계 설명 텍스트
+- 애니메이션 (스테거드 진입)
 
-1. Hero 섹션 → `app/page.tsx`에 통합
-2. PainPoints 섹션 → 통합
-3. Demo 섹션 → 통합 (가장 복잡)
-4. Trust 섹션 → 통합
-5. HowItWorks 섹션 → 통합
-6. Testimonial 섹션 → 통합
-7. Pricing 섹션 → 통합
+### 3. 후기 섹션 (선택사항)
+- 후기 카드 컴포넌트
+- 모바일 캐러셀
+- 페이징 인디케이터
+
+### 4. 요금제 섹션 (선택사항)
+- 3개 요금제 카드
+- 기능 체크리스트
+- 가격 표시
 
 ---
 
 ## ✅ 완료 체크리스트
 
-- [ ] Hero 섹션 컴포넌트
-- [ ] PainPoints 섹션 컴포넌트
-- [ ] Demo 섹션 컴포넌트
-- [ ] Trust 섹션 컴포넌트
-- [ ] HowItWorks 섹션 컴포넌트
-- [ ] Testimonial 섹션 컴포넌트
-- [ ] Pricing 섹션 컴포넌트
-- [ ] `app/page.tsx` 통합
-- [ ] 접근성 검증
-- [ ] 반응형 테스트
+- [x] Hero 섹션 컴포넌트
+- [x] 정보 수집 폼 컴포넌트
+- [x] `app/page.tsx` 통합
+- [x] Server Action 구현
+- [x] 데이터베이스 마이그레이션 생성
+- [x] 접근성 검증
+- [x] 반응형 테스트
 
+---
+
+## 📝 참고사항
+
+현재 랜딩 페이지는 **최소한의 기능**만 포함하도록 단순화되었습니다:
+- Hero 섹션: 서비스 소개 및 CTA
+- 정보 수집 폼: 사용자 정보 수집 (이름, 이메일, 연락처)
+
+필요 시 위의 선택사항 섹션들을 추가하여 기능을 확장할 수 있습니다.
