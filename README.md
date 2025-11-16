@@ -355,18 +355,27 @@ Clerk에서 추가 로그인 방식을 활성화하려면:
 saas-template/
 ├── app/                    # Next.js App Router
 │   ├── api/               # API Routes
-│   │   └── sync-user/    # Clerk → Supabase 사용자 동기화
-│   ├── auth-test/        # 인증 테스트 페이지
-│   ├── storage-test/     # 스토리지 테스트 페이지
+│   │   ├── health/       # 헬스체크
+│   │   ├── sync-user/    # Clerk → Supabase 사용자 동기화
+│   │   └── webhooks/     # Clerk 웹훅
 │   ├── layout.tsx        # Root Layout (Clerk Provider)
-│   ├── page.tsx          # 홈페이지
+│   ├── page.tsx          # 랜딩 페이지 (8개 섹션)
 │   └── globals.css       # 전역 스타일 (Tailwind v4 설정)
 │
 ├── components/            # React 컴포넌트
 │   ├── ui/               # shadcn/ui 컴포넌트 (자동 생성)
+│   ├── sections/         # 랜딩 페이지 섹션 컴포넌트
+│   │   ├── hero-section.tsx
+│   │   ├── problem-section.tsx
+│   │   ├── solution-section.tsx
+│   │   ├── features-section.tsx
+│   │   ├── how-it-works-section.tsx
+│   │   ├── testimonials-section.tsx
+│   │   └── faq-section.tsx
+│   ├── accessibility/    # 접근성 컴포넌트
 │   ├── providers/        # Context Providers
 │   │   └── sync-user-provider.tsx
-│   └── Navbar.tsx        # 네비게이션 바
+│   └── lead-form.tsx     # 정보 수집 폼
 │
 ├── lib/                   # 유틸리티 및 설정
 │   ├── supabase/         # Supabase 클라이언트들

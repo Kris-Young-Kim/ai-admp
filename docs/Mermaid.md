@@ -1,6 +1,6 @@
 # Mermaid.md - 아키텍처 및 플로우 다이어그램
 
-> 단순화된 랜딩페이지 아키텍처 다이어그램
+> 일반적인 랜딩페이지 구조 아키텍처 다이어그램
 
 ---
 
@@ -32,22 +32,34 @@ graph TB
 
 ---
 
-## 2. 사용자 여정 (단순화)
+## 2. 사용자 여정 (일반적인 랜딩페이지)
 
 ```mermaid
-graph LR
-    A["👤 사용자 방문"] --> B["🎯 Hero 섹션<br/>확인"]
-    B --> C["📝 정보 입력<br/>이름, 이메일, 연락처"]
-    C --> D["✅ 제출<br/>Server Action"]
-    D --> E["💾 Supabase 저장<br/>leads 테이블"]
-    E --> F["🎉 완료 메시지"]
+graph TD
+    A["👤 사용자 방문"] --> B["🎯 Hero 섹션<br/>헤드라인 확인"]
+    B --> C["❓ 문제 공감 섹션<br/>문제 인식"]
+    C --> D["💡 해결책 섹션<br/>서비스 이해"]
+    D --> E["⭐ 기능/특징 섹션<br/>주요 기능 확인"]
+    E --> F["🔄 작동 방식 섹션<br/>프로세스 이해"]
+    F --> G["💬 사용자 후기 섹션<br/>신뢰도 확인"]
+    G --> H["❓ FAQ 섹션<br/>궁금증 해결"]
+    H --> I["📝 정보 입력<br/>이름, 이메일, 연락처"]
+    I --> J["✅ 제출<br/>Server Action"]
+    J --> K["💾 Supabase 저장<br/>leads 테이블"]
+    K --> L["🎉 완료 메시지"]
     
     style A fill:#e3f2fd
     style B fill:#bbdefb
-    style C fill:#c8e6c9
-    style D fill:#fff9c4
-    style E fill:#ffe0b2
-    style F fill:#a5d6a7
+    style C fill:#ffccbc
+    style D fill:#c8e6c9
+    style E fill:#fff9c4
+    style F fill:#b2dfdb
+    style G fill:#d1c4e9
+    style H fill:#ffe0b2
+    style I fill:#c8e6c9
+    style J fill:#fff9c4
+    style K fill:#ffe0b2
+    style L fill:#a5d6a7
 ```
 
 ---
@@ -128,20 +140,44 @@ graph TB
     Page["app/page.tsx<br/>랜딩 페이지"]
     
     Hero["HeroSection<br/>헤드라인 + CTA"]
+    Problem["ProblemSection<br/>문제 공감"]
+    Solution["SolutionSection<br/>해결책"]
+    Features["FeaturesSection<br/>기능/특징"]
+    HowItWorks["HowItWorksSection<br/>작동 방식"]
+    Testimonials["TestimonialsSection<br/>사용자 후기"]
+    FAQ["FAQSection<br/>자주 묻는 질문"]
     Form["LeadForm<br/>정보 수집 폼"]
     
-    UI["UI Components<br/>Button, Input, Card"]
+    UI["UI Components<br/>Button, Input, Card, Accordion"]
     Access["Accessibility<br/>Toolbar, TTS"]
     
     Page --> Hero
+    Page --> Problem
+    Page --> Solution
+    Page --> Features
+    Page --> HowItWorks
+    Page --> Testimonials
+    Page --> FAQ
     Page --> Form
     
     Hero --> UI
+    Problem --> UI
+    Solution --> UI
+    Features --> UI
+    HowItWorks --> UI
+    Testimonials --> UI
+    FAQ --> UI
     Form --> UI
     Page --> Access
     
     style Page fill:#c8e6c9
     style Hero fill:#bbdefb
+    style Problem fill:#ffccbc
+    style Solution fill:#c8e6c9
+    style Features fill:#fff9c4
+    style HowItWorks fill:#b2dfdb
+    style Testimonials fill:#d1c4e9
+    style FAQ fill:#ffe0b2
     style Form fill:#fff9c4
     style UI fill:#ffe0b2
     style Access fill:#b2dfdb

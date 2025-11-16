@@ -36,12 +36,12 @@ AI를 활용하여 사용자의 신체 상황, 활동 목적, 예산에 맞는 �
 ## 🛠️ 기술 스택
 
 ### 프론트엔드
-- **프레임워크**: [Next.js 13+](https://nextjs.org/) (App Router)
-- **언어**: [TypeScript 5.0](https://www.typescriptlang.org/)
-- **UI**: [React 18](https://react.dev/) + [Tailwind CSS 3+](https://tailwindcss.com/)
-- **상태 관리**: [Zustand](https://zustand-demo.vercel.app/)
+- **프레임워크**: [Next.js 15.5.6](https://nextjs.org/) (App Router)
+- **언어**: [TypeScript 5](https://www.typescriptlang.org/)
+- **UI**: [React 19](https://react.dev/) + [Tailwind CSS v4](https://tailwindcss.com/)
+- **UI 컴포넌트**: [shadcn/ui](https://ui.shadcn.com/) (Radix UI 기반)
 - **폼**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
-- **애니메이션**: [Framer Motion](https://www.framer.com/motion/)
+- **아이콘**: [lucide-react](https://lucide.dev/)
 
 ### 백엔드
 - **데이터베이스**: [Supabase](https://supabase.com/) (PostgreSQL)
@@ -227,14 +227,11 @@ git push origin main
 
 ## 📖 문서
 
-- **[PRD (Product Requirements Document)](./AI_Assistive_Device_Matching_Landing_Page_PRD_V3.md)** - 완전한 제품 명세
-- **[TODO (작업 목록)](./TODO.md)** - 개발 단계별 작업 항목
-- **[Mermaid (다이어그램)](./Mermaid.md)** - 아키텍처 및 플로우 다이어그램
-- **[DIR (디렉토리)](./DIR.md)** - 프로젝트 폴더 구조
-- **[API.md](./docs/API.md)** - API 문서
-- **[DATABASE.md](./docs/DATABASE.md)** - 데이터베이스 스키마
-- **[DEPLOYMENT.md](./docs/DEPLOYMENT.md)** - 배포 가이드
-- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - 기여 가이드
+- **[PRD (Product Requirements Document)](./docs/AI_Assistive_Device_Matching_Landing_Page_PRD.md)** - 완전한 제품 명세 (v5.0)
+- **[TODO (작업 목록)](./docs/TODO.md)** - 개발 단계별 작업 항목
+- **[Mermaid (다이어그램)](./docs/Mermaid.md)** - 아키텍처 및 플로우 다이어그램
+- **[DIR (디렉토리)](./docs/DIR.md)** - 프로젝트 폴더 구조
+- **[ACCESSIBILITY_GUIDE](./docs/ACCESSIBILITY_GUIDE.md)** - 접근성 가이드
 
 ---
 
@@ -534,7 +531,7 @@ MIT License - [LICENSE](./LICENSE) 파일 참고
 
 ---
 
-**마지막 업데이트**: 2025년 11월 14일  
+**마지막 업데이트**: 2025년 1월  
 **유지 보수자**: Dev Team  
-**상태**: 🟢 Active Development
+**상태**: 🟢 Active Development (일반적인 랜딩페이지 구조 완료)
 

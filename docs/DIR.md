@@ -1,6 +1,6 @@
 # DIR.md - 프로젝트 디렉토리 구조
 
-> 단순화된 랜딩페이지 프로젝트 구조
+> 일반적인 랜딩페이지 구조 프로젝트
 
 ---
 
@@ -30,7 +30,7 @@ AI-ADMP_landing/
 │   │
 │   ├── app/                            # Next.js App Router
 │   │   ├── layout.tsx                  # 루트 레이아웃
-│   │   ├── page.tsx                    # 랜딩 페이지 (Hero + Lead Form)
+│   │   ├── page.tsx                    # 랜딩 페이지 (8개 섹션)
 │   │   ├── globals.css                 # 글로벌 스타일
 │   │   │
 │   │   ├── api/                        # API Routes (최소한만)
@@ -54,7 +54,13 @@ AI-ADMP_landing/
 │   │   │   └── ...
 │   │   │
 │   │   ├── sections/                   # 페이지 섹션
-│   │   │   └── hero-section.tsx        # Hero 섹션
+│   │   │   ├── hero-section.tsx        # Hero 섹션
+│   │   │   ├── problem-section.tsx     # 문제 공감 섹션
+│   │   │   ├── solution-section.tsx    # 해결책 섹션
+│   │   │   ├── features-section.tsx    # 기능/특징 섹션
+│   │   │   ├── how-it-works-section.tsx # 작동 방식 섹션
+│   │   │   ├── testimonials-section.tsx # 사용자 후기 섹션
+│   │   │   └── faq-section.tsx         # FAQ 섹션
 │   │   │
 │   │   ├── accessibility/              # 접근성 컴포넌트
 │   │   │   ├── accessibility-toolbar.tsx
@@ -116,15 +122,21 @@ AI-ADMP_landing/
 
 ## 핵심 파일 설명
 
-| 파일                                   | 설명                          | 우선도  |
-| -------------------------------------- | ----------------------------- | ------- |
-| `app/page.tsx`                         | 랜딩페이지 (Hero + Lead Form) | 🔴 높음 |
-| `components/lead-form.tsx`             | 정보 수집 폼                  | 🔴 높음 |
-| `actions/submit-lead.ts`               | 정보 저장 Server Action       | 🔴 높음 |
-| `components/sections/hero-section.tsx` | Hero 섹션                     | 🔴 높음 |
-| `lib/supabase/`                        | Supabase 클라이언트           | 🔴 높음 |
-| `middleware.ts`                        | Clerk 인증 미들웨어           | 🟡 중간 |
-| `app/api/health/route.ts`              | 헬스체크 API                  | 🟢 낮음 |
+| 파일                                           | 설명                    | 우선도  |
+| ---------------------------------------------- | ----------------------- | ------- |
+| `app/page.tsx`                                 | 랜딩페이지 (8개 섹션)   | 🔴 높음 |
+| `components/sections/hero-section.tsx`         | Hero 섹션               | 🔴 높음 |
+| `components/sections/problem-section.tsx`      | 문제 공감 섹션          | 🔴 높음 |
+| `components/sections/solution-section.tsx`     | 해결책 섹션             | 🔴 높음 |
+| `components/sections/features-section.tsx`     | 기능/특징 섹션          | 🔴 높음 |
+| `components/sections/how-it-works-section.tsx` | 작동 방식 섹션          | 🔴 높음 |
+| `components/sections/testimonials-section.tsx` | 사용자 후기 섹션        | 🔴 높음 |
+| `components/sections/faq-section.tsx`          | FAQ 섹션                | 🔴 높음 |
+| `components/lead-form.tsx`                     | 정보 수집 폼            | 🔴 높음 |
+| `actions/submit-lead.ts`                       | 정보 저장 Server Action | 🔴 높음 |
+| `lib/supabase/`                                | Supabase 클라이언트     | 🔴 높음 |
+| `middleware.ts`                                | Clerk 인증 미들웨어     | 🟡 중간 |
+| `app/api/health/route.ts`                      | 헬스체크 API            | 🟢 낮음 |
 
 ---
 
@@ -163,4 +175,4 @@ git push origin main  # Vercel 자동 배포
 ---
 
 **마지막 업데이트**: 2025년 1월  
-**프로젝트 상태**: 단순화된 랜딩페이지 (Hero + 정보 수집)
+**프로젝트 상태**: 일반적인 랜딩페이지 구조 (8개 섹션 완료)
