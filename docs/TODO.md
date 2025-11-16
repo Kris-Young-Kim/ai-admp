@@ -425,12 +425,12 @@
 
 ### Clerk 통합
 
-- [x] **인증 라우트 설정** (기본 설정 완료)
+- [x] **인증 라우트 설정** ✅ 완료
 
-  - [ ] Sign-up 페이지 (Clerk 기본 페이지 사용 가능)
-  - [ ] Sign-in 페이지 (Clerk 기본 페이지 사용 가능)
+  - [x] Sign-up 페이지 (Clerk 기본 모달 사용 - SignInButton mode="modal")
+  - [x] Sign-in 페이지 (Clerk 기본 모달 사용 - SignInButton mode="modal")
   - [x] Callback 라우트 (Clerk 자동 처리)
-  - [ ] 사용자 프로필 페이지 (커스텀 페이지 필요 시)
+  - [x] 사용자 프로필 (UserButton 컴포넌트 사용)
 
 - [x] **미들웨어 설정**
 
@@ -438,10 +438,10 @@
   - [x] 인증 상태 확인 (Clerk 미들웨어 완료)
   - [x] Supabase 세션 동기화 (SyncUserProvider 구현 완료)
 
-- [x] **Webhook 구성** (기본 동기화 로직 완료)
-  - [x] `user.created` - 세션 생성 (SyncUserProvider로 처리)
-  - [x] `user.updated` - 프로필 업데이트 (동기화 로직 포함)
-  - [ ] `user.deleted` - 정리 작업 (추가 필요 시)
+- [x] **Webhook 구성** ✅ 완료
+  - [x] `user.created` - 세션 생성 (Webhook + SyncUserProvider 이중 처리)
+  - [x] `user.updated` - 프로필 업데이트 (Webhook으로 처리)
+  - [x] `user.deleted` - 정리 작업 (sessions 테이블에서 삭제, CASCADE 처리)
 
 ---
 
