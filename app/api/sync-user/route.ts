@@ -38,6 +38,7 @@ export async function POST() {
             clerkUser.username ||
             clerkUser.emailAddresses[0]?.emailAddress ||
             "Unknown",
+          email: clerkUser.emailAddresses[0]?.emailAddress || null,
         },
         {
           onConflict: "clerk_id",
@@ -48,8 +49,17 @@ export async function POST() {
 
     if (error) {
       console.error("Supabase sync error:", error);
+      console.error("에러 코드:", error.code);
+      console.error("에러 메시지:", error.message);
+      console.error("에러 상세:", error.details);
+      console.error("에러 힌트:", error.hint);
       return NextResponse.json(
-        { error: "Failed to sync user", details: error.message },
+        { 
+          error: "Failed to sync user", 
+          details: error.message,
+          code: error.code,
+          hint: error.hint
+        },
         { status: 500 }
       );
     }
