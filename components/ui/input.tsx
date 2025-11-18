@@ -39,7 +39,15 @@ type InputProps = AriaTextFieldProps<HTMLInputElement> &
     errorMessage?: string
   }
 
-function Input({ className, type, label, description, errorMessage, ...props }: InputProps) {
+function Input({
+  className,
+  type,
+  label,
+  description,
+  errorMessage,
+  onChange: userOnChange,
+  ...props
+}: InputProps) {
   const ref = React.useRef<HTMLInputElement>(null)
 
   // React Aria: 텍스트 필드 접근성 훅
@@ -54,8 +62,20 @@ function Input({ className, type, label, description, errorMessage, ...props }: 
     ref
   )
 
+  const { onChange: ariaOnChange, ...restInputProps } = inputProps
+
   // React Aria: 포커스 링 관리
   const { isFocusVisible, focusProps } = useFocusRing()
+
+  const handleChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      ;(ariaOnChange as React.ChangeEventHandler<HTMLInputElement> | undefined)?.(
+        event
+      )
+      userOnChange?.(event)
+    },
+    [ariaOnChange, userOnChange]
+  )
 
   // 로그: Input 컴포넌트 렌더링 정보
   React.useEffect(() => {
@@ -84,9 +104,10 @@ function Input({ className, type, label, description, errorMessage, ...props }: 
           isFocusVisible && "ring-2 ring-ring ring-offset-2",
           className
         )}
-        {...(inputProps as React.InputHTMLAttributes<HTMLInputElement>)}
+        {...(restInputProps as React.InputHTMLAttributes<HTMLInputElement>)}
         {...focusProps}
         {...props}
+        onChange={handleChange}
       />
       {description && (
         <p {...descriptionProps} className="text-sm text-muted-foreground mt-1">
