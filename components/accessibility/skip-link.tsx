@@ -28,11 +28,6 @@ interface SkipLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 export function SkipLink({ href, children = "주 콘텐츠로 건너뛰기", className, ...props }: SkipLinkProps) {
-  const [isFocused, setIsFocused] = React.useState(false)
-
-  const handleFocus = () => setIsFocused(true)
-  const handleBlur = () => setIsFocused(false)
-
   return (
     <a
       href={href}
@@ -43,8 +38,6 @@ export function SkipLink({ href, children = "주 콘텐츠로 건너뛰기", cla
         "transition-all",
         className
       )}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
       aria-label={typeof children === "string" ? children : "주 콘텐츠로 건너뛰기"}
       {...props}
     >

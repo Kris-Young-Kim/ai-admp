@@ -88,7 +88,7 @@ export function GlobalAriaLiveRegion() {
   // 전역 함수로 메시지 설정 가능
   React.useEffect(() => {
     if (typeof window !== "undefined") {
-      // @ts-ignore
+      // @ts-expect-error - window에 announceToScreenReader 속성 추가
       window.announceToScreenReader = (
         msg: string,
         pri: "polite" | "assertive" = "polite"

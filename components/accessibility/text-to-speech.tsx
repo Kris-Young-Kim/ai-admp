@@ -20,11 +20,10 @@
  */
 
 import * as React from "react"
-import { Play, Pause, Square, Volume2, VolumeX } from "lucide-react"
+import { Play, Pause, Square, Volume2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Slider } from "@/components/ui/slider"
-import { cn } from "@/lib/utils"
 
 interface TextToSpeechProps {
   className?: string
@@ -143,14 +142,14 @@ export function TextToSpeech({ className }: TextToSpeechProps) {
   }
 
   // 읽기 중지
-  const stopReading = () => {
+  const stopReading = React.useCallback(() => {
     if (!isSupported) return
     speechSynthesis.cancel()
     setIsReading(false)
     setIsPaused(false)
     setCurrentText("")
     utteranceRef.current = null
-  }
+  }, [isSupported])
 
   // 선택한 텍스트 읽기
   const readSelection = () => {
@@ -167,7 +166,7 @@ export function TextToSpeech({ className }: TextToSpeechProps) {
     return () => {
       stopReading()
     }
-  }, [])
+  }, [stopReading])
 
   if (!isSupported) {
     return (

@@ -296,7 +296,7 @@ function checkFocusIndicators(): WCAGCheck[] {
       }
       if (hasFocusStyles) break;
     }
-  } catch (e) {
+  } catch {
     // CORS 오류 등으로 인한 예외 처리
   }
 

@@ -10,7 +10,7 @@
  * 3. 성능 모니터링
  * 
  * @dependencies
- * - @sentry/nextjs: Sentry SDK (설치 필요)
+ * - @sentry/nextjs: Sentry SDK (설치 필요, 선택사항)
  */
 
 /**
@@ -19,15 +19,15 @@
  * @param error - 에러 객체
  * @param context - 추가 컨텍스트 정보
  */
-export function captureError(
+export async function captureError(
   error: Error,
   context?: Record<string, any>
-): void {
+): Promise<void> {
   if (typeof window === "undefined") {
     // 서버 사이드
     try {
-      // @ts-ignore - Sentry가 설치되지 않았을 수 있음
-      const Sentry = require("@sentry/nextjs");
+      // @ts-expect-error - Sentry가 설치되지 않았을 수 있음
+      const Sentry = await import("@sentry/nextjs");
       Sentry.captureException(error, {
         contexts: {
           custom: context,
@@ -40,9 +40,9 @@ export function captureError(
   } else {
     // 클라이언트 사이드
     try {
-      // @ts-ignore
+      // @ts-expect-error - window.Sentry는 선택적 속성
       if (window.Sentry) {
-        // @ts-ignore
+        // @ts-expect-error - window.Sentry는 선택적 속성
         window.Sentry.captureException(error, {
           contexts: {
             custom: context,
@@ -62,15 +62,15 @@ export function captureError(
  * @param level - 로그 레벨
  * @param context - 추가 컨텍스트 정보
  */
-export function captureMessage(
+export async function captureMessage(
   message: string,
   level: "info" | "warning" | "error" = "info",
   context?: Record<string, any>
-): void {
+): Promise<void> {
   if (typeof window === "undefined") {
     try {
-      // @ts-ignore
-      const Sentry = require("@sentry/nextjs");
+      // @ts-expect-error - Sentry가 설치되지 않았을 수 있음
+      const Sentry = await import("@sentry/nextjs");
       Sentry.captureMessage(message, {
         level,
         contexts: {
@@ -82,9 +82,9 @@ export function captureMessage(
     }
   } else {
     try {
-      // @ts-ignore
+      // @ts-expect-error - window.Sentry는 선택적 속성
       if (window.Sentry) {
-        // @ts-ignore
+        // @ts-expect-error - window.Sentry는 선택적 속성
         window.Sentry.captureMessage(message, {
           level,
           contexts: {
@@ -105,20 +105,20 @@ export function captureMessage(
  * @param op - 작업 유형
  * @returns 트랜잭션 객체 또는 null
  */
-export function startTransaction(
+export async function startTransaction(
   name: string,
   op: string = "custom"
-): any {
+): Promise<any> {
   try {
     if (typeof window === "undefined") {
-      // @ts-ignore
-      const Sentry = require("@sentry/nextjs");
-      // @ts-ignore
+      // @ts-expect-error - Sentry가 설치되지 않았을 수 있음
+      const Sentry = await import("@sentry/nextjs");
+      // @ts-expect-error - Sentry 타입이 불완전할 수 있음
       return Sentry.startTransaction({ name, op });
     } else {
-      // @ts-ignore
+      // @ts-expect-error - window.Sentry는 선택적 속성
       if (window.Sentry) {
-        // @ts-ignore
+        // @ts-expect-error - window.Sentry는 선택적 속성
         return window.Sentry.startTransaction({ name, op });
       }
     }

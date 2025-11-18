@@ -24,7 +24,6 @@ import { Scan, Play, Pause, Square } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Slider } from "@/components/ui/slider"
-import { cn } from "@/lib/utils"
 
 interface KeyboardScanModeProps {
   className?: string
@@ -63,8 +62,28 @@ export function KeyboardScanMode({ className }: KeyboardScanModeProps) {
     return elements
   }
 
+  // 하이라이트 제거
+  const removeHighlight = React.useCallback(() => {
+    document.querySelectorAll("[data-scan-highlight]").forEach((el) => {
+      const htmlEl = el as HTMLElement
+      htmlEl.style.outline = ""
+      htmlEl.style.outlineOffset = ""
+      htmlEl.style.zIndex = ""
+      htmlEl.removeAttribute("data-scan-highlight")
+    })
+  }, [])
+
+  // 요소 하이라이트
+  const highlightElement = React.useCallback((element: HTMLElement) => {
+    removeHighlight()
+    element.style.outline = "4px solid #3b82f6"
+    element.style.outlineOffset = "2px"
+    element.style.zIndex = "9999"
+    element.setAttribute("data-scan-highlight", "true")
+  }, [removeHighlight])
+
   // 스캔 모드 활성화
-  const activateScanMode = () => {
+  const activateScanMode = React.useCallback(() => {
     const elements = findFocusableElements()
     setFocusableElements(elements)
     setCurrentIndex(0)
@@ -74,10 +93,10 @@ export function KeyboardScanMode({ className }: KeyboardScanModeProps) {
       elements[0].focus()
       highlightElement(elements[0])
     }
-  }
+  }, [highlightElement])
 
   // 스캔 모드 비활성화
-  const deactivateScanMode = () => {
+  const deactivateScanMode = React.useCallback(() => {
     setIsActive(false)
     setIsAutoScan(false)
     setCurrentIndex(0)
@@ -86,67 +105,64 @@ export function KeyboardScanMode({ className }: KeyboardScanModeProps) {
       intervalRef.current = null
     }
     removeHighlight()
-  }
+  }, [removeHighlight])
 
   // 다음 요소로 이동
-  const moveToNext = () => {
-    if (focusableElements.length === 0) return
+  const moveToNext = React.useCallback(() => {
+    setCurrentIndex((prevIndex) => {
+      setFocusableElements((prevElements) => {
+        if (prevElements.length === 0) return prevElements
 
-    const nextIndex = (currentIndex + 1) % focusableElements.length
-    setCurrentIndex(nextIndex)
-    const element = focusableElements[nextIndex]
-    element.focus()
-    highlightElement(element)
-    element.scrollIntoView({ behavior: "smooth", block: "center" })
-  }
+        const nextIndex = (prevIndex + 1) % prevElements.length
+        const element = prevElements[nextIndex]
+        setTimeout(() => {
+          element.focus()
+          highlightElement(element)
+          element.scrollIntoView({ behavior: "smooth", block: "center" })
+        }, 0)
+        return prevElements
+      })
+      return (prevIndex + 1) % (focusableElements.length || 1)
+    })
+  }, [highlightElement, focusableElements.length])
 
   // 이전 요소로 이동
-  const moveToPrevious = () => {
-    if (focusableElements.length === 0) return
+  const moveToPrevious = React.useCallback(() => {
+    setCurrentIndex((prevIndex) => {
+      setFocusableElements((prevElements) => {
+        if (prevElements.length === 0) return prevElements
 
-    const prevIndex = currentIndex === 0 ? focusableElements.length - 1 : currentIndex - 1
-    setCurrentIndex(prevIndex)
-    const element = focusableElements[prevIndex]
-    element.focus()
-    highlightElement(element)
-    element.scrollIntoView({ behavior: "smooth", block: "center" })
-  }
-
-  // 요소 하이라이트
-  const highlightElement = (element: HTMLElement) => {
-    removeHighlight()
-    element.style.outline = "4px solid #3b82f6"
-    element.style.outlineOffset = "2px"
-    element.style.zIndex = "9999"
-    element.setAttribute("data-scan-highlight", "true")
-  }
-
-  // 하이라이트 제거
-  const removeHighlight = () => {
-    document.querySelectorAll("[data-scan-highlight]").forEach((el) => {
-      const htmlEl = el as HTMLElement
-      htmlEl.style.outline = ""
-      htmlEl.style.outlineOffset = ""
-      htmlEl.style.zIndex = ""
-      htmlEl.removeAttribute("data-scan-highlight")
+        const prevIdx = prevIndex === 0 ? prevElements.length - 1 : prevIndex - 1
+        const element = prevElements[prevIdx]
+        setTimeout(() => {
+          element.focus()
+          highlightElement(element)
+          element.scrollIntoView({ behavior: "smooth", block: "center" })
+        }, 0)
+        return prevElements
+      })
+      const prevIdx = prevIndex === 0 ? (focusableElements.length || 1) - 1 : prevIndex - 1
+      return prevIdx
     })
-  }
+  }, [highlightElement, focusableElements.length])
 
   // 자동 스캔 시작/중지
-  const toggleAutoScan = () => {
-    if (isAutoScan) {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
-        intervalRef.current = null
+  const toggleAutoScan = React.useCallback(() => {
+    setIsAutoScan((prev) => {
+      if (prev) {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current)
+          intervalRef.current = null
+        }
+        return false
+      } else {
+        intervalRef.current = setInterval(() => {
+          moveToNext()
+        }, scanInterval)
+        return true
       }
-      setIsAutoScan(false)
-    } else {
-      setIsAutoScan(true)
-      intervalRef.current = setInterval(() => {
-        moveToNext()
-      }, scanInterval)
-    }
-  }
+    })
+  }, [scanInterval, moveToNext])
 
   // 키보드 이벤트 처리
   React.useEffect(() => {
@@ -174,7 +190,7 @@ export function KeyboardScanMode({ className }: KeyboardScanModeProps) {
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [isActive, isAutoScan, currentIndex, focusableElements, scanInterval])
+  }, [isActive, isAutoScan, moveToNext, moveToPrevious, toggleAutoScan, deactivateScanMode])
 
   // 자동 스캔 정리
   React.useEffect(() => {

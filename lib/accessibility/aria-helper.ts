@@ -126,11 +126,12 @@ export function validateFocusIndicator(element: HTMLElement): {
  * 색상 대비 계산 (간단한 검증)
  */
 export function calculateContrastRatio(
-  foreground: string,
-  background: string
+  _foreground: string,
+  _background: string
 ): number {
   // 실제 구현은 더 복잡하지만, 기본 구조만 제공
   // 실제로는 RGB 값을 파싱하고 상대 휘도를 계산해야 함
+  // TODO: 실제 대비 계산 로직 구현 필요
   return 4.5; // 임시 값
 }
 
