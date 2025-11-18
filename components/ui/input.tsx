@@ -69,12 +69,16 @@ function Input({
 
   const handleChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      ;(ariaOnChange as React.ChangeEventHandler<HTMLInputElement> | undefined)?.(
-        event
-      )
-      ;(userOnChange as React.ChangeEventHandler<HTMLInputElement> | undefined)?.(
-        event
-      )
+      ;(
+        ariaOnChange as unknown as
+          | React.ChangeEventHandler<HTMLInputElement>
+          | undefined
+      )?.(event)
+      ;(
+        userOnChange as unknown as
+          | React.ChangeEventHandler<HTMLInputElement>
+          | undefined
+      )?.(event)
     },
     [ariaOnChange, userOnChange]
   )
