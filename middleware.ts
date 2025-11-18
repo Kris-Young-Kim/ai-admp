@@ -1,8 +1,13 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-export default clerkMiddleware({
-  // Webhook 엔드포인트는 인증 없이 접근 가능해야 함
-  ignoredRoutes: ["/api/webhooks/clerk"],
+const isPublicRoute = createRouteMatcher(["/api/webhooks/clerk"]);
+
+export default clerkMiddleware((auth, req) => {
+  if (isPublicRoute(req)) {
+    return;
+  }
+
+  auth().protect();
 });
 
 export const config = {
