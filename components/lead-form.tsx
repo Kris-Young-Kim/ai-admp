@@ -40,7 +40,7 @@ const leadFormSchema = z.object({
   phone: z.string().min(10, "연락처를 올바르게 입력해주세요."),
 });
 
-type LeadFormValues = SubmitLeadInput;
+type LeadFormValues = z.infer<typeof leadFormSchema>;
 
 export function LeadForm() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -67,7 +67,13 @@ export function LeadForm() {
     setSubmitResult(null);
 
     try {
-      const result = await submitLead(data);
+      const payload: SubmitLeadInput = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+      };
+
+      const result = await submitLead(payload);
 
       console.log("제출 결과:", result);
       console.groupEnd();
