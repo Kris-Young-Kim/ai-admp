@@ -72,7 +72,9 @@ function Input({
       ;(ariaOnChange as React.ChangeEventHandler<HTMLInputElement> | undefined)?.(
         event
       )
-      userOnChange?.(event)
+      ;(userOnChange as React.ChangeEventHandler<HTMLInputElement> | undefined)?.(
+        event
+      )
     },
     [ariaOnChange, userOnChange]
   )
