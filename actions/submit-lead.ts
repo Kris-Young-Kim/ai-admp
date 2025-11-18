@@ -15,7 +15,7 @@ import { createPublicClient } from "@/lib/supabase/server";
  * - lib/supabase/server: Supabase 클라이언트
  */
 
-interface SubmitLeadInput {
+export interface SubmitLeadInput {
   name: string;
   email: string;
   phone: string;

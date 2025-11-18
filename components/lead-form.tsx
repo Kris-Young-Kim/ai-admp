@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { submitLead } from "@/actions/submit-lead";
+import type { SubmitLeadInput } from "@/actions/submit-lead";
 import { CheckCircle2, Loader2 } from "lucide-react";
 
 /**
@@ -39,7 +40,7 @@ const leadFormSchema = z.object({
   phone: z.string().min(10, "연락처를 올바르게 입력해주세요."),
 });
 
-type LeadFormValues = z.infer<typeof leadFormSchema>;
+type LeadFormValues = SubmitLeadInput;
 
 export function LeadForm() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
