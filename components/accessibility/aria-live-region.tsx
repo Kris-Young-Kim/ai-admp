@@ -17,6 +17,16 @@ import * as React from "react";
  * - React: 상태 관리
  */
 
+// Window 인터페이스 확장
+declare global {
+  interface Window {
+    announceToScreenReader?: (
+      message: string,
+      priority?: "polite" | "assertive"
+    ) => void;
+  }
+}
+
 interface AriaLiveRegionProps {
   /**
    * Live region의 우선순위
@@ -88,7 +98,6 @@ export function GlobalAriaLiveRegion() {
   // 전역 함수로 메시지 설정 가능
   React.useEffect(() => {
     if (typeof window !== "undefined") {
-      // @ts-expect-error - window에 announceToScreenReader 속성 추가
       window.announceToScreenReader = (
         msg: string,
         pri: "polite" | "assertive" = "polite"

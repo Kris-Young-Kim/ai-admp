@@ -34,7 +34,7 @@ interface HealthStatus {
   };
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   console.group("🏥 헬스체크 API 호출");
 
   const healthStatus: HealthStatus = {
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
     const dbStartTime = Date.now();
     const supabase = getServiceRoleClient();
 
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("sessions")
       .select("id")
       .limit(1);

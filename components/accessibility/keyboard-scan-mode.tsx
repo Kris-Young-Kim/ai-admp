@@ -200,7 +200,7 @@ export function KeyboardScanMode({ className }: KeyboardScanModeProps) {
       }
       removeHighlight()
     }
-  }, [])
+  }, [removeHighlight])
 
   return (
     <Card className={className} role="region" aria-label="키보드 스캔 모드">
