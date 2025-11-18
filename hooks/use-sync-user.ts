@@ -39,7 +39,18 @@ export function useSyncUser() {
         });
 
         if (!response.ok) {
-          console.error("Failed to sync user:", await response.text());
+          const errorData = await response.json();
+          
+          // 테이블이 없는 경우 조용히 무시 (선택사항 기능이므로)
+          if (errorData.code === "PGRST205" || errorData.details?.includes("table")) {
+            console.warn(
+              "[useSyncUser] users 테이블이 없습니다. Supabase에서 테이블을 생성해주세요."
+            );
+            return;
+          }
+          
+          // 다른 에러는 로그에 기록
+          console.error("Failed to sync user:", errorData);
           return;
         }
 
