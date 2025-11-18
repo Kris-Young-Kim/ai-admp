@@ -6,6 +6,7 @@ import { HowItWorksSection } from "@/components/sections/how-it-works-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { FAQSection } from "@/components/sections/faq-section";
 import { LeadForm } from "@/components/lead-form";
+import { PageViewTracker } from "@/components/analytics/page-view-tracker";
 
 /**
  * 인덱스 페이지 (랜딩 페이지)
@@ -31,6 +32,9 @@ import { LeadForm } from "@/components/lead-form";
 export default function Home() {
   return (
     <main id="main-content" className="min-h-screen">
+      {/* 페이지뷰 추적 */}
+      <PageViewTracker />
+      
       {/* Hero 섹션 */}
       <HeroSection />
 

@@ -4,6 +4,7 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Shield, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { gtm } from "@/lib/analytics/gtm";
 
 /**
  * Hero 섹션 컴포넌트
@@ -136,6 +137,10 @@ export function HeroSection() {
             size="lg"
             className="text-lg px-8 py-6"
             aria-label={`${variant.ctaPrimary} - 정보 수집 폼으로 이동`}
+            onClick={() => {
+              gtm.ctaClick("hero_section", "primary_cta");
+              console.log("[HeroSection] GTM 이벤트 전송: cta_click (hero_primary)");
+            }}
           >
             <a href="#contact-form">{variant.ctaPrimary}</a>
           </Button>

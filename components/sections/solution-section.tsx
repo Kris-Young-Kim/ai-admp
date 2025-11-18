@@ -4,6 +4,7 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Sparkles, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { gtm } from "@/lib/analytics/gtm";
 
 /**
  * 해결책 섹션 컴포넌트
@@ -38,7 +39,10 @@ export function SolutionSection() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          // GTM 이벤트 추적: 섹션 스크롤
+          gtm.sectionScroll("solution_section");
           console.log("[SolutionSection] 섹션이 뷰포트에 진입했습니다.");
+          console.log("[SolutionSection] GTM 이벤트 전송: section_scroll");
         }
       },
       { threshold: 0.1 }
@@ -151,6 +155,10 @@ export function SolutionSection() {
             size="lg"
             className="text-lg px-8 py-6"
             aria-label="지금 시작하기 - 정보 수집 폼으로 이동"
+            onClick={() => {
+              gtm.ctaClick("solution_section", "cta_button");
+              console.log("[SolutionSection] GTM 이벤트 전송: cta_click (solution)");
+            }}
           >
             <a href="#contact-form">지금 시작하기</a>
           </Button>
