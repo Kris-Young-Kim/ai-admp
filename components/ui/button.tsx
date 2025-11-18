@@ -77,10 +77,15 @@ const buttonVariants = cva(
   }
 )
 
+type NativeButtonProps = Omit<
+  React.ComponentProps<"button">,
+  keyof AriaButtonProps<"button">
+>;
+
 interface ButtonProps
-  extends React.ComponentProps<"button">,
-    VariantProps<typeof buttonVariants>,
-    AriaButtonProps<"button"> {
+  extends AriaButtonProps<"button">,
+    NativeButtonProps,
+    VariantProps<typeof buttonVariants> {
   asChild?: boolean
 }
 
