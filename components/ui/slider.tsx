@@ -223,6 +223,6 @@ export function FormSlider({
   )
 }
 
-export { Slider, FormSlider }
+export { Slider }
 export type { SliderProps, FormSliderProps }
 

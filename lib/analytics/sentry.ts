@@ -13,6 +13,29 @@
  * - @sentry/nextjs: Sentry SDK (설치 필요, 선택사항)
  */
 
+declare global {
+  interface Window {
+    Sentry?: {
+      captureException: (error: unknown, context?: Record<string, any>) => void
+      captureMessage: (
+        message: string,
+        options?: { level?: "info" | "warning" | "error"; contexts?: Record<string, any> }
+      ) => void
+      startTransaction: (options: { name: string; op: string }) => any
+    }
+  }
+}
+
+type SentryModule = typeof import("@sentry/nextjs")
+
+async function loadSentry(): Promise<SentryModule | null> {
+  try {
+    return await import("@sentry/nextjs")
+  } catch {
+    return null
+  }
+}
+
 /**
  * 에러를 Sentry에 보고
  * 
@@ -25,32 +48,26 @@ export async function captureError(
 ): Promise<void> {
   if (typeof window === "undefined") {
     // 서버 사이드
-    try {
-      // @ts-expect-error - Sentry가 설치되지 않았을 수 있음
-      const Sentry = await import("@sentry/nextjs");
+    const Sentry = await loadSentry()
+    if (Sentry) {
       Sentry.captureException(error, {
         contexts: {
           custom: context,
         },
-      });
-    } catch {
-      // Sentry가 설치되지 않은 경우 무시
-      console.error("Sentry Error:", error, context);
+      })
+    } else {
+      console.error("Sentry Error:", error, context)
     }
   } else {
     // 클라이언트 사이드
-    try {
-      // @ts-expect-error - window.Sentry는 선택적 속성
-      if (window.Sentry) {
-        // @ts-expect-error - window.Sentry는 선택적 속성
-        window.Sentry.captureException(error, {
-          contexts: {
-            custom: context,
-          },
-        });
-      }
-    } catch {
-      console.error("Sentry Error:", error, context);
+    if (window.Sentry) {
+      window.Sentry.captureException(error, {
+        contexts: {
+          custom: context,
+        },
+      })
+    } else {
+      console.error("Sentry Error:", error, context)
     }
   }
 }
@@ -68,32 +85,27 @@ export async function captureMessage(
   context?: Record<string, any>
 ): Promise<void> {
   if (typeof window === "undefined") {
-    try {
-      // @ts-expect-error - Sentry가 설치되지 않았을 수 있음
-      const Sentry = await import("@sentry/nextjs");
+    const Sentry = await loadSentry()
+    if (Sentry) {
       Sentry.captureMessage(message, {
         level,
         contexts: {
           custom: context,
         },
-      });
-    } catch {
-      console.log(`[${level.toUpperCase()}]`, message, context);
+      })
+    } else {
+      console.log(`[${level.toUpperCase()}]`, message, context)
     }
   } else {
-    try {
-      // @ts-expect-error - window.Sentry는 선택적 속성
-      if (window.Sentry) {
-        // @ts-expect-error - window.Sentry는 선택적 속성
-        window.Sentry.captureMessage(message, {
-          level,
-          contexts: {
-            custom: context,
-          },
-        });
-      }
-    } catch {
-      console.log(`[${level.toUpperCase()}]`, message, context);
+    if (window.Sentry) {
+      window.Sentry.captureMessage(message, {
+        level,
+        contexts: {
+          custom: context,
+        },
+      })
+    } else {
+      console.log(`[${level.toUpperCase()}]`, message, context)
     }
   }
 }
@@ -111,15 +123,13 @@ export async function startTransaction(
 ): Promise<any> {
   try {
     if (typeof window === "undefined") {
-      // @ts-expect-error - Sentry가 설치되지 않았을 수 있음
-      const Sentry = await import("@sentry/nextjs");
-      // @ts-expect-error - Sentry 타입이 불완전할 수 있음
-      return Sentry.startTransaction({ name, op });
+      const Sentry = await loadSentry()
+      if (Sentry && "startTransaction" in Sentry) {
+        return (Sentry as Record<string, any>).startTransaction({ name, op })
+      }
     } else {
-      // @ts-expect-error - window.Sentry는 선택적 속성
       if (window.Sentry) {
-        // @ts-expect-error - window.Sentry는 선택적 속성
-        return window.Sentry.startTransaction({ name, op });
+        return window.Sentry.startTransaction({ name, op })
       }
     }
   } catch {

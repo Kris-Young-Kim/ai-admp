@@ -46,6 +46,7 @@ function Input({
   description,
   errorMessage,
   onChange: userOnChange,
+  spellCheck: userSpellCheck,
   ...props
 }: InputProps) {
   const ref = React.useRef<HTMLInputElement>(null)
@@ -57,12 +58,31 @@ function Input({
       description,
       errorMessage,
       type,
+      spellCheck: userSpellCheck,
       ...props,
     },
     ref
   )
 
   const { onChange: ariaOnChange, ...restInputProps } = inputProps
+
+  const { spellCheck, ...otherInputProps } = restInputProps
+  const normalizedSpellCheck: "true" | "false" | undefined = (() => {
+    const value =
+      typeof userSpellCheck !== "undefined" ? userSpellCheck : spellCheck
+
+    if (typeof value === "string") {
+      return value === "true" ? "true" : "false"
+    }
+    if (typeof value === "boolean") {
+      return value ? "true" : "false"
+    }
+    return undefined
+  })()
+  const sanitizedInputProps = {
+    ...otherInputProps,
+    spellCheck: normalizedSpellCheck,
+  } as React.InputHTMLAttributes<HTMLInputElement>
 
   // React Aria: 포커스 링 관리
   const { isFocusVisible, focusProps } = useFocusRing()
@@ -110,7 +130,7 @@ function Input({
           isFocusVisible && "ring-2 ring-ring ring-offset-2",
           className
         )}
-        {...(restInputProps as React.InputHTMLAttributes<HTMLInputElement>)}
+        {...sanitizedInputProps}
         {...focusProps}
         {...props}
         onChange={handleChange}
