@@ -56,6 +56,8 @@ export function TextToSpeech({ className }: TextToSpeechProps) {
       "language-unavailable": "언어 사용 불가",
       "text-too-long": "텍스트가 너무 김",
       "invalid-argument": "잘못된 인수",
+      "not-allowed": "허용되지 않음",
+      "voice-unavailable": "음성 사용 불가",
     }
     return errorNames[errorCode] || "알 수 없는 오류"
   }

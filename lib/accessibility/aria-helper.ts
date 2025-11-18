@@ -125,9 +125,10 @@ export function validateFocusIndicator(element: HTMLElement): {
 /**
  * 색상 대비 계산 (간단한 검증)
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function calculateContrastRatio(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _foreground: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _background: string
 ): number {
   // 실제 구현은 더 복잡하지만, 기본 구조만 제공
