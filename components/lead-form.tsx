@@ -18,6 +18,7 @@ import { submitLead } from "@/actions/submit-lead";
 import type { SubmitLeadInput } from "@/actions/submit-lead";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { gtm } from "@/lib/analytics/gtm";
+import { ga4 } from "@/lib/analytics/ga4";
 
 /**
  * @file components/lead-form.tsx
@@ -86,7 +87,9 @@ export function LeadForm() {
         gtm.formSubmit("lead_form", true, {
           form_location: "landing_page",
         });
-        console.log("[LeadForm] GTM 이벤트 전송: form_submit (success)");
+        // GA4 이벤트 추적: 폼 제출 성공
+        ga4.formSubmit("lead_form", true);
+        console.log("[LeadForm] GTM/GA4 이벤트 전송: form_submit (success)");
 
         // 성공 시 폼 초기화
         form.reset();
@@ -96,7 +99,9 @@ export function LeadForm() {
           form_location: "landing_page",
           error_message: result.error,
         });
-        console.log("[LeadForm] GTM 이벤트 전송: form_submit (failure)");
+        // GA4 이벤트 추적: 폼 제출 실패
+        ga4.formSubmit("lead_form", false);
+        console.log("[LeadForm] GTM/GA4 이벤트 전송: form_submit (failure)");
       }
     } catch (error) {
       console.error("[LeadForm] 제출 오류:", error);

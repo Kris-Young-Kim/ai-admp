@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { gtm } from "@/lib/analytics/gtm";
+import { ga4 } from "@/lib/analytics/ga4";
 
 /**
  * 해결책 섹션 컴포넌트
@@ -41,8 +42,10 @@ export function SolutionSection() {
           setIsVisible(true);
           // GTM 이벤트 추적: 섹션 스크롤
           gtm.sectionScroll("solution_section");
+          // GA4 이벤트 추적: 섹션 스크롤
+          ga4.sectionScroll("solution_section");
           console.log("[SolutionSection] 섹션이 뷰포트에 진입했습니다.");
-          console.log("[SolutionSection] GTM 이벤트 전송: section_scroll");
+          console.log("[SolutionSection] GTM/GA4 이벤트 전송: section_scroll");
         }
       },
       { threshold: 0.1 }
@@ -157,7 +160,8 @@ export function SolutionSection() {
             aria-label="지금 시작하기 - 정보 수집 폼으로 이동"
             onClick={() => {
               gtm.ctaClick("solution_section", "cta_button");
-              console.log("[SolutionSection] GTM 이벤트 전송: cta_click (solution)");
+              ga4.ctaClick("solution_section", "cta_button");
+              console.log("[SolutionSection] GTM/GA4 이벤트 전송: cta_click (solution)");
             }}
           >
             <a href="#contact-form">지금 시작하기</a>

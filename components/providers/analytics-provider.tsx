@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { trackPageView } from "@/lib/analytics/ga4";
 
 /**
@@ -27,22 +26,27 @@ interface AnalyticsProviderProps {
 
 export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
   const pathname = usePathname();
-  const ga4MeasurementId = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
 
   // 페이지뷰 자동 추적
   useEffect(() => {
-    if (pathname && ga4MeasurementId) {
-      trackPageView(pathname);
+    if (pathname) {
+      // gtag가 로드될 때까지 대기
+      const checkGtag = setInterval(() => {
+        if (typeof window !== "undefined" && window.gtag) {
+          trackPageView(pathname);
+          clearInterval(checkGtag);
+        }
+      }, 100);
+
+      // 5초 후 타임아웃
+      setTimeout(() => clearInterval(checkGtag), 5000);
     }
-  }, [pathname, ga4MeasurementId]);
+  }, [pathname]);
 
   return (
     <>
       {children}
-      {/* Google Analytics 4 스크립트 로드 */}
-      {ga4MeasurementId && (
-        <GoogleAnalytics gaId={ga4MeasurementId} />
-      )}
+      {/* Google Analytics 4는 layout.tsx에서 직접 로드하므로 여기서는 제거 */}
     </>
   );
 }

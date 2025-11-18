@@ -61,7 +61,9 @@ export function trackPageView(pagePath: string, pageTitle?: string): void {
   }
 
   try {
-    window.gtag("config", process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID || "", {
+    // 환경 변수 또는 하드코딩된 Measurement ID 사용
+    const measurementId = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID || "G-V280YE71BV";
+    window.gtag("config", measurementId, {
       page_path: pagePath,
       page_title: pageTitle,
     });
