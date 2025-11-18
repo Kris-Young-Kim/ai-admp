@@ -25,11 +25,19 @@ import type { AriaTextFieldProps } from "@react-aria/textfield"
 
 import { cn } from "@/lib/utils"
 
-interface InputProps extends React.ComponentProps<"input">, AriaTextFieldProps {
-  label?: string
-  description?: string
-  errorMessage?: string
+type NativeInputProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  keyof AriaTextFieldProps<HTMLInputElement> | "autoCapitalize"
+> & {
+  autoCapitalize?: "on" | "off" | "none" | "sentences" | "words" | "characters"
 }
+
+type InputProps = AriaTextFieldProps<HTMLInputElement> &
+  NativeInputProps & {
+    label?: string
+    description?: string
+    errorMessage?: string
+  }
 
 function Input({ className, type, label, description, errorMessage, ...props }: InputProps) {
   const ref = React.useRef<HTMLInputElement>(null)
@@ -76,7 +84,7 @@ function Input({ className, type, label, description, errorMessage, ...props }: 
           isFocusVisible && "ring-2 ring-ring ring-offset-2",
           className
         )}
-        {...inputProps}
+        {...(inputProps as React.InputHTMLAttributes<HTMLInputElement>)}
         {...focusProps}
         {...props}
       />
