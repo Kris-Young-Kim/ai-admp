@@ -32,33 +32,43 @@ export default function MatchingResultsPage() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [error, setError] = React.useState<string | null>(null);
   const [recommendations, setRecommendations] = React.useState<RecommendedProduct[]>([]);
-  const hasLoadedRef = React.useRef(false);
+  const loadedParamsRef = React.useRef<string>("");
 
   // 질문 파라미터 읽기
   const bodyPart = searchParams.get("body_part") || "";
   const activitiesParam = searchParams.get("activities") || "";
-  const activities = activitiesParam ? activitiesParam.split(",") : [];
+  const activities = React.useMemo(() => {
+    return activitiesParam ? activitiesParam.split(",") : [];
+  }, [activitiesParam]);
   const budgetMin = parseInt(searchParams.get("budget_min") || "0", 10);
   const budgetMax = parseInt(searchParams.get("budget_max") || "10000000", 10);
 
-  // 쿠팡 상품 추천 로드 (한 번만 실행)
+  // 파라미터를 키로 변환 (의존성 비교용)
+  const paramsKey = React.useMemo(() => {
+    return `${bodyPart}|${activitiesParam}|${budgetMin}|${budgetMax}`;
+  }, [bodyPart, activitiesParam, budgetMin, budgetMax]);
+
+  // 쿠팡 상품 추천 로드 (파라미터가 변경될 때만 실행)
   React.useEffect(() => {
-    // 이미 로드했으면 실행하지 않음
-    if (hasLoadedRef.current) {
+    // 같은 파라미터로 이미 로드했으면 실행하지 않음
+    if (loadedParamsRef.current === paramsKey) {
       return;
     }
 
+    // 파라미터가 없으면 에러 표시
+    if (!bodyPart || activities.length === 0) {
+      setError("질문 정보가 없습니다. 다시 시작해주세요.");
+      setIsLoading(false);
+      return;
+    }
+
+    // 로드 시작
+    loadedParamsRef.current = paramsKey;
+    setIsLoading(true);
+    setError(null);
+    setRecommendations([]);
+
     const loadRecommendations = async () => {
-      if (!bodyPart || activities.length === 0) {
-        setError("질문 정보가 없습니다. 다시 시작해주세요.");
-        setIsLoading(false);
-        return;
-      }
-
-      hasLoadedRef.current = true;
-      setIsLoading(true);
-      setError(null);
-
       try {
         console.group("[MatchingResultsPage] 쿠팡 상품 추천 요청");
         console.log("신체 부위:", bodyPart);
@@ -72,6 +82,13 @@ export default function MatchingResultsPage() {
           budget_min: budgetMin,
           budget_max: budgetMax,
         });
+
+        // 파라미터가 변경되지 않았는지 확인 (race condition 방지)
+        const currentKey = `${bodyPart}|${activitiesParam}|${budgetMin}|${budgetMax}`;
+        if (loadedParamsRef.current !== currentKey) {
+          console.log("[MatchingResultsPage] 파라미터가 변경되어 결과를 무시합니다.");
+          return;
+        }
 
         if (result.success && result.recommendations) {
           setRecommendations(result.recommendations);
@@ -87,50 +104,12 @@ export default function MatchingResultsPage() {
     };
 
     loadRecommendations();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // 빈 의존성 배열로 마운트 시 한 번만 실행
+  }, [paramsKey, bodyPart, activities, activitiesParam, budgetMin, budgetMax]);
 
   const handleRetry = () => {
-    // 상태 리셋 후 다시 로드
-    hasLoadedRef.current = false;
-    setIsLoading(true);
-    setError(null);
-    setRecommendations([]);
-    
-    // 약간의 지연 후 다시 로드
-    setTimeout(() => {
-      const loadRecommendations = async () => {
-        if (!bodyPart || activities.length === 0) {
-          setError("질문 정보가 없습니다. 다시 시작해주세요.");
-          setIsLoading(false);
-          return;
-        }
-
-        hasLoadedRef.current = true;
-
-        try {
-          const result = await getCoupangRecommendations({
-            primary_body_part: bodyPart,
-            activities,
-            budget_min: budgetMin,
-            budget_max: budgetMax,
-          });
-
-          if (result.success && result.recommendations) {
-            setRecommendations(result.recommendations);
-          } else {
-            setError(result.error || "추천 상품을 불러오는데 실패했습니다.");
-          }
-        } catch (err) {
-          console.error("[MatchingResultsPage] 추천 로드 실패:", err);
-          setError("추천 상품을 불러오는 중 오류가 발생했습니다.");
-        } finally {
-          setIsLoading(false);
-        }
-      };
-
-      loadRecommendations();
-    }, 100);
+    // 파라미터 키를 리셋하여 다시 로드하도록 함
+    loadedParamsRef.current = "";
+    // useEffect가 자동으로 다시 실행됨
   };
 
   const handleStartOver = () => {

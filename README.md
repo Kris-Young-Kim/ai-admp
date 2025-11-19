@@ -409,3 +409,5 @@ saas-template/
 - [shadcn/ui 문서](https://ui.shadcn.com/)
 - [Tailwind CSS v4 문서](https://tailwindcss.com/docs)
 # ai-admp
+#   a i - a d m p - m a i n  
+ 
